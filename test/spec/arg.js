@@ -34,12 +34,29 @@ describe("Arg", function(){
     setupParams("?" + TestArgString);
     expect(Arg.querystring()).toEqual(TestArgString);
 
+    setupParams("?" + TestArgString + "#something=else");
+    expect(Arg.querystring()).toEqual(TestArgString);
+
   });
 
   it("should be able to get the hash parameter string", function(){
 
+    setupParams("?something=else#" + TestArgString);
+    expect(Arg.hashstring()).toEqual(TestArgString);
+
     setupParams("#" + TestArgString);
     expect(Arg.hashstring()).toEqual(TestArgString);
+
+  });
+
+  it("should be able to get the POJO from the querystring", function(){
+
+    setupParams("?" + TestArgString);
+    var args = Arg.params();
+
+    expect(args["name"]).toEqual("Ryan");
+    expect(args["number"]).toEqual("27");
+    expect(args["state"]).toEqual("CO");
 
   });
 
