@@ -2,12 +2,16 @@
 
 Gives you quick and easy access to parameters in the URL.
 
-### Get a parameter
+### Usage
 
     // GET page.html?name=Mat&address[0].city=London&address[0].country=UK&address[1].city=Boulder&address[1].country=US
 
+#### Get a single value
+
     Arg.get("name")
     //= "Mat"
+
+#### Get an array
 
     Arg.get("address")
     //= [
@@ -15,13 +19,17 @@ Gives you quick and easy access to parameters in the URL.
     //    { city: "Boulder", country: "US" }
     //  ]
 
+#### Get an object
+
     Arg.get("address[0]")
     //= { city: "London", country: "UK" }
+
+#### Get a field from an object in an array
 
     Arg.get("address[0].city")
     //= "London"
 
-    // get with default
+#### Get with a default value
 
     Arg.get("address[0].something", "Unknown")
     //= "Unknown"
