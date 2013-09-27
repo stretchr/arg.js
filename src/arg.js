@@ -55,6 +55,7 @@ Arg.toPOJO = function(s){
 
 /** @class
  * Holds arg data and provides helpful functions.
+ * @param {string|object} stringOrObject Either a URL arguments string, or an object of arguments.
  */
 Arg.Args = function(stringOrObject){
 
