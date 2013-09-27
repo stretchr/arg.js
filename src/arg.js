@@ -95,7 +95,7 @@ var ArgReset = function(){
    * Turns the specified object into a URL parameter string.
    */
   Arg.stringify = function(obj, keyPrefix) {
-    keyPrefix = keyPrefix || "";
+
     var segs = [];
     var thisKey;
     for (var key in obj) {
@@ -103,10 +103,13 @@ var ArgReset = function(){
       var val = obj[key];
       thisKey = keyPrefix ? keyPrefix+"."+key : key;
 
+      if (typeof obj.length !== "undefined") {
+        thisKey = keyPrefix ? keyPrefix+"["+key+"]" : key;
+      }
+
       if (typeof val === "object") {
-        return Arg.stringify(val, thisKey);
+        segs.push(Arg.stringify(val, thisKey));
       } else {
-        //console.info(encodeURIComponent(thisKey)+"="+encodeURIComponent(val))
         segs.push(encodeURIComponent(thisKey)+"="+encodeURIComponent(val));
       }
 

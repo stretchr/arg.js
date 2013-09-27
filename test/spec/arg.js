@@ -281,8 +281,8 @@ describe("Arg.stringify", function(){
         }
       ]
     });
-    expect(s).toContain("places[0].city=London");
-    expect(s).toContain("places[1].city=Boulder");
+    expect(decodeURIComponent(s)).toContain("places[0].city=London");
+    expect(decodeURIComponent(s)).toContain("places[1].city=Boulder");
 
   });
 
