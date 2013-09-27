@@ -41,6 +41,14 @@ The examples here assume this path:
 The `Arg.stringify` method lets you easily encode an object into a query string.
 
     Arg.stringify({ name: "Mat" });
-    //= {
-    //    name: "Mat"
-    //  }
+    //= name=Mat
+
+#### Encoding objects
+
+    Arg.stringify({ one: { two: { three: 3 }}});
+    //= one.two.three=3
+
+#### Encoding arrays
+
+    Arg.stringify({list:["one","two","three"]});
+    //= list[0]=one&list[1]=two&list[2]=three

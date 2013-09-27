@@ -99,6 +99,7 @@ var ArgReset = function(){
     var segs = [];
     var thisKey;
     for (var key in obj) {
+      if (!obj.hasOwnProperty(key)) continue;
 
       var val = obj[key];
       thisKey = keyPrefix ? keyPrefix+"."+key : key;
