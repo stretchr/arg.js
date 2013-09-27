@@ -261,7 +261,28 @@ describe("Arg.stringify", function(){
 
   it("should encode nested objects", function(){
 
+    var s = Arg.stringify({
+      one: {
+        two: 2
+      }
+    });
+    expect(s).toContain("one.two=2");
 
+  });
+
+  it("should know how to encode arrays", function(){
+
+    var s = Arg.stringify({
+      places: [
+        {
+          city: "London"
+        }, {
+          city: "Boulder"
+        }
+      ]
+    });
+    expect(s).toContain("places[0].city=London");
+    expect(s).toContain("places[1].city=Boulder");
 
   });
 
