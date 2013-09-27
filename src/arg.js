@@ -35,13 +35,6 @@ var Arg = Arg || {};
  * Parses the arg string into an Arg.Arg object.
  */
 Arg.parse = function(s){
-  return new Arg.Args(s);
-};
-
-/**
- * Decodes a URL parameter string into a POJO.
- */
-Arg.toPOJO = function(s){
   if (!s) return {};
   var obj = {};
   var pairs = s.split("&");
@@ -54,74 +47,41 @@ Arg.toPOJO = function(s){
 };
 
 /**
+ * Turns the specified object into a URL parameter string.
+ */
+Arg.stringify = function(obj) {
+  var segs = [];
+  for (var key in obj) {
+    var val = obj[key];
+    segs.push(encodeURIComponent(key)+"="+encodeURIComponent(val));
+  }
+  return this._s = segs.join("&");
+};
+
+/**
+ * Gets the query string parameters from the current URL.
+ */
+Arg.query = function(){
+  return Arg.parse(Arg.querystring());
+};
+
+/**
+ * Gets the hash string parameters from the current URL.
+ */
+Arg.hash = function(){
+  return Arg.parse(Arg.hashstring());
+};
+
+/**
  * Gets the query string from the URL (the part after the ?).
  */
 Arg.querystring = function(){
-  return location.search.substr(1);
+  return Arg._querystring != null ? Arg._querystring : Arg._querystring = location.search.substr(1);
 };
 
 /**
  * Gets the hash param string from the URL (the part after the #).
  */
 Arg.hashstring = function(){
-  return location.hash.substr(1);
-};
-
-/** @class
- * Holds arg data and provides helpful functions.
- * @param {string|object} stringOrObject Either a URL arguments string, or an object of arguments.
- */
-Arg.Args = function(stringOrObject){
-
-  if (typeof(stringOrObject) == "string") {
-    this._s = stringOrObject;
-    this._d = Arg.toPOJO(stringOrObject);
-  } else {
-    this._d = stringOrObject;
-  }
-
-};
-
-/**
- * Decodes a URL parameter string into this Args object.
- */
-Arg.Args.prototype.parse = function(s){
-  this._d = Arg.toPOJO(s);
-};
-
-/**
- * Gets all arguments as a POJO.
- */
-Arg.Args.prototype.all = function(){
-  return this._d;
-};
-
-/**
- * Gets the value of the specified arg.
- */
-Arg.Args.prototype.get = function(key){
-  return this._d[key];
-};
-
-/**
- * Merges data into the current Args object.
- */
-Arg.Args.prototype.merge = function(data){
-  for (var key in data) {
-    if (data.hasOwnProperty(key)) {
-      this._d[key] = data[key];
-    }
-  }
-};
-
-/**
- * Gets an encoded string representing these arguments.
- */
-Arg.Args.prototype.toString = function(){
-  var segs = [];
-  for (var key in this._d) {
-    var val = this._d[key];
-    segs.push(encodeURIComponent(key)+"="+encodeURIComponent(val));
-  }
-  return this._s = segs.join("&");
+  return Arg._hashstring != null ? Arg._hashstring : Arg._hashstring = location.hash.substr(1);
 };
