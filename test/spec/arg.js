@@ -17,6 +17,13 @@ describe("Arg", function(){
 });
 describe("Arg.Args", function(){
 
+  it("should parse when constructed", function(){
+    var a = Arg.parse(TestArgString);
+    expect(a._d["name"]).toEqual("Ryan");
+    expect(a._d["number"]).toEqual("27");
+    expect(a._d["state"]).toEqual("CO");
+  });
+
   it("should be able to parse the string into a data object", function(){
     var args = new Arg.Args();
     var obj = args.parse(TestArgString);
