@@ -31,3 +31,46 @@
  */
 var Arg = Arg || {};
 
+/**
+ * Parses the arg string into an Arg.Arg object.
+ */
+Arg.parse = function(s){
+  return new Arg.Args(s);
+};
+
+/** @class
+ * Holds arg data and provides helpful functions.
+ */
+Arg.Args = function(s){
+  this._s = s;
+  this._d = this.parse(s);
+};
+
+/**
+ * Decodes a URL parameter string into a POJO.
+ */
+Arg.Args.prototype.parse = function(s){
+  if (!s) return {};
+  var obj = {};
+  var pairs = s.split("&");
+  for (var pi in pairs) {
+    var kvsegs = pairs[pi].split("=");
+    var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
+    obj[key] = val;
+  }
+  return obj;
+};
+
+/**
+ * Gets an encoded string representing these arguments.
+ */
+Arg.Args.prototype.toString = function(){
+  return this._s;
+};
+
+/**
+ * Gets the value of the specified arg.
+ */
+Arg.Args.prototype.get = function(key){
+  return this._d[key];
+}
