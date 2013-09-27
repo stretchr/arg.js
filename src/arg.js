@@ -53,6 +53,20 @@ Arg.toPOJO = function(s){
   return obj;
 };
 
+/**
+ * Gets the query string from the URL (the part after the ?).
+ */
+Arg.querystring = function(){
+  return location.search.substr(1);
+};
+
+/**
+ * Gets the hash param string from the URL (the part after the #).
+ */
+Arg.hashstring = function(){
+  return location.hash.substr(1);
+};
+
 /** @class
  * Holds arg data and provides helpful functions.
  * @param {string|object} stringOrObject Either a URL arguments string, or an object of arguments.
@@ -87,6 +101,17 @@ Arg.Args.prototype.all = function(){
  */
 Arg.Args.prototype.get = function(key){
   return this._d[key];
+};
+
+/**
+ * Merges data into the current Args object.
+ */
+Arg.Args.prototype.merge = function(data){
+  for (var key in data) {
+    if (data.hasOwnProperty(key)) {
+      this._d[key] = data[key];
+    }
+  }
 };
 
 /**

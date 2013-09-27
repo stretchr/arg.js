@@ -1,6 +1,16 @@
 
 var TestArgString = "name=Ryan&number=27&state=CO";
 
+function setupParams(paramString) {
+  //change the url without reloading page...will break in older browsers and IE below v10
+  //only for testing
+  window.history.pushState(null, null, window.location.pathname + paramString);
+}
+
+function clearParams() {
+  setupParams("");
+}
+
 describe("Arg", function(){
 
   it("namespace should be defined", function(){
@@ -17,6 +27,20 @@ describe("Arg", function(){
     expect(obj["name"]).toEqual("Ryan");
     expect(obj["number"]).toEqual("27");
     expect(obj["state"]).toEqual("CO");
+  });
+
+  it("should be able to get the URL parameter string", function(){
+
+    setupParams("?" + TestArgString);
+    expect(Arg.querystring()).toEqual(TestArgString);
+
+  });
+
+  it("should be able to get the hash parameter string", function(){
+
+    setupParams("#" + TestArgString);
+    expect(Arg.hashstring()).toEqual(TestArgString);
+
   });
 
 });
@@ -74,6 +98,26 @@ describe("Arg.Args", function(){
     expect(obj["name"]).toEqual("Ryan");
     expect(obj["number"]).toEqual("27");
     expect(obj["state"]).toEqual("CO");
+  });
+
+  it("should be able to merge() more data in", function(){
+
+    var args = new Arg.Args();
+    args.parse(TestArgString);
+    args.merge({
+      egg: "true",
+      sausage: "true",
+      bacon: "false"
+    });
+    var obj = args._d;
+
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+    expect(obj["egg"]).toEqual("true");
+    expect(obj["bacon"]).toEqual("false");
+    expect(obj["sausage"]).toEqual("true");
+
   });
 
 });
