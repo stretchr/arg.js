@@ -13,6 +13,13 @@ function clearParams() {
 
 describe("Arg", function(){
 
+  beforeEach(function(){
+
+    // clear out any caches
+    ArgReset();
+
+  });
+
   it("namespace should be defined", function(){
     expect(Arg).toBeDefined();
   });
@@ -40,6 +47,9 @@ describe("Arg", function(){
     expect(Arg.hashstring()).toEqual(TestArgString);
 
     setupParams("#" + TestArgString);
+    expect(Arg.hashstring()).toEqual(TestArgString);
+
+    setupParams("?something=else#?" + TestArgString);
     expect(Arg.hashstring()).toEqual(TestArgString);
 
   });
@@ -89,6 +99,29 @@ describe("Arg", function(){
 
   });
 
+  it("should be able to get all parameters (from query and hash) via the all() method", function(){
+
+    setupParams("?name=Mat&eggs=true#number=30&state=CO");
+    var args = Arg.all();
+
+    expect(args["name"]).toEqual("Mat");
+    expect(args["number"]).toEqual("30");
+    expect(args["eggs"]).toEqual("true");
+    expect(args["state"]).toEqual("CO");
+
+    expect(Arg._all).toEqual(args);
+
+    Arg._all = {
+      "name": "Mat",
+      "number": "30"
+    };
+    var args = Arg.all();
+
+    expect(args["name"]).toEqual("Mat");
+    expect(args["number"]).toEqual("30");
+
+  });
+
   it("should be able to turn an object into a URL string via stringify()", function(){
 
     var s = Arg.stringify({
@@ -99,6 +132,29 @@ describe("Arg", function(){
     expect(s).toContain("name=Ryan");
     expect(s).toContain("number=27");
     expect(s).toContain("state=CO");
+
+  });
+
+  if("should be able to merge data via the merge() method", function(){
+
+    var a = {
+      "one": 1,
+      "override": false
+    };
+    var b = {
+      "two": 2,
+      "override": true
+    };
+    var c = {
+      "three": 3
+    };
+
+    var all = Arg.merge(a, b, c);
+
+    expect(all["one"]).toEqual(1);
+    expect(all["two"]).toEqual(2);
+    expect(all["three"]).toEqual(3);
+    expect(all["override"]).toEqual(true);
 
   });
 
