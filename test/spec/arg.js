@@ -25,14 +25,25 @@ describe("Arg.Args", function(){
     expect(obj["state"]).toEqual("CO");
   });
 
-  it("should return the string via toString()", function(){
-    var a = Arg.parse(TestArgString);
-    expect(a.toString()).toEqual(TestArgString);
-  })
-
   it("should get values via get()", function(){
     var a = Arg.parse(TestArgString);
     expect(a.get("name")).toEqual("Ryan");
+  });
+
+  it("should return the string via toString()", function(){
+    var a = Arg.parse(TestArgString);
+    expect(a.toString()).toContain("name=Ryan");
+    expect(a.toString()).toContain("number=27");
+    expect(a.toString()).toContain("state=CO");
+  });
+
+  it("should return the updated args as a string via toString()", function(){
+    var a = Arg.parse(TestArgString);
+    a._d["new"] = "YES";
+    expect(a.toString()).toContain("name=Ryan");
+    expect(a.toString()).toContain("number=27");
+    expect(a.toString()).toContain("state=CO");
+    expect(a.toString()).toContain("new=YES");
   });
 
 });

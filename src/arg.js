@@ -65,7 +65,12 @@ Arg.Args.prototype.parse = function(s){
  * Gets an encoded string representing these arguments.
  */
 Arg.Args.prototype.toString = function(){
-  return this._s;
+  var segs = [];
+  for (var key in this._d) {
+    var val = this._d[key];
+    segs.push(encodeURIComponent(key)+"="+encodeURIComponent(val));
+  }
+  return segs.join("&");
 };
 
 /**
