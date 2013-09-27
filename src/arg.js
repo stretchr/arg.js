@@ -62,6 +62,13 @@ Arg.Args.prototype.parse = function(s){
 };
 
 /**
+ * Gets all arguments as a POJO.
+ */
+Arg.Args.prototype.all = function(){
+  return this._d;
+};
+
+/**
  * Gets an encoded string representing these arguments.
  */
 Arg.Args.prototype.toString = function(){

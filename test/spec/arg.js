@@ -32,6 +32,13 @@ describe("Arg.Args", function(){
     expect(obj["state"]).toEqual("CO");
   });
 
+  it("should get all values via all()", function(){
+    var a = Arg.parse(TestArgString);
+    expect(a.all()["name"]).toEqual("Ryan");
+    expect(a.all()["number"]).toEqual("27");
+    expect(a.all()["state"]).toEqual("CO");
+  });
+
   it("should get values via get()", function(){
     var a = Arg.parse(TestArgString);
     expect(a.get("name")).toEqual("Ryan");
