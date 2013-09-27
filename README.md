@@ -36,3 +36,11 @@ The examples here assume this path:
     Arg.get("address[0].something", "Unknown")
     //= "Unknown"
 
+### Building a querystring
+
+The `Arg.stringify` method lets you easily encode an object into a query string.
+
+    Arg.stringify({ name: "Mat" });
+    //= {
+    //    name: "Mat"
+    //  }
