@@ -17,3 +17,12 @@ Gives you quick and easy access to parameters in the URL.
 
     Arg.get("address[0]")
     //= { city: "London", country: "UK" }
+
+    Arg.get("address[0].city")
+    //= "London"
+
+    // get with default
+
+    Arg.get("address[0].something", "Unknown")
+    //= "Unknown"
+
