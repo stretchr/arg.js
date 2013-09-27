@@ -25,3 +25,9 @@
   DEALINGS IN THE SOFTWARE.
 
 */
+
+/** @namespace
+ * Arg is the root namespace for all arg.js functionality.
+ */
+var Arg = Arg || {};
+
