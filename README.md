@@ -6,7 +6,7 @@ Gives you quick and easy access to parameters in the URL.
 
 The examples here assume this path:
 
-    GET page.html?name=Mat&address[0].city=London&address[0].country=UK&address[1].city=Boulder&address[1].country=US
+    page.html?name=Mat&address[0].city=London&address[0].country=UK&address[1].city=Boulder&address[1].country=US
 
 #### Get a single value
 
