@@ -56,8 +56,21 @@ Arg.toPOJO = function(s){
 /** @class
  * Holds arg data and provides helpful functions.
  */
-Arg.Args = function(s){
-  this._s = s;
+Arg.Args = function(stringOrObject){
+
+  if (typeof(stringOrObject) == "string") {
+    this._s = stringOrObject;
+    this._d = Arg.toPOJO(stringOrObject);
+  } else {
+    this._d = stringOrObject;
+  }
+
+};
+
+/**
+ * Decodes a URL parameter string into this Args object.
+ */
+Arg.Args.prototype.parse = function(s){
   this._d = Arg.toPOJO(s);
 };
 
@@ -69,6 +82,13 @@ Arg.Args.prototype.all = function(){
 };
 
 /**
+ * Gets the value of the specified arg.
+ */
+Arg.Args.prototype.get = function(key){
+  return this._d[key];
+};
+
+/**
  * Gets an encoded string representing these arguments.
  */
 Arg.Args.prototype.toString = function(){
@@ -77,12 +97,5 @@ Arg.Args.prototype.toString = function(){
     var val = this._d[key];
     segs.push(encodeURIComponent(key)+"="+encodeURIComponent(val));
   }
-  return segs.join("&");
+  return this._s = segs.join("&");
 };
-
-/**
- * Gets the value of the specified arg.
- */
-Arg.Args.prototype.get = function(key){
-  return this._d[key];
-}
