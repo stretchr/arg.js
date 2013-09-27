@@ -115,19 +115,6 @@ describe("Arg", function(){
 
   });
 
-  it("should be able to turn an object into a URL string via stringify()", function(){
-
-    var s = Arg.stringify({
-      name: "Ryan",
-      number: 27,
-      state: "CO"
-    });
-    expect(s).toContain("name=Ryan");
-    expect(s).toContain("number=27");
-    expect(s).toContain("state=CO");
-
-  });
-
   it("should give you quick access via the get method", function(){
 
     setupParams("?something=else&egg=123#?number=26&sausage=true");
@@ -186,6 +173,7 @@ describe("Arg.parse", function(){
 
     var obj = Arg.parse("?" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
     expect(obj["state"]).toEqual("CO");
 
     var obj = Arg.parse("#" + TestArgString);
@@ -251,6 +239,29 @@ describe("Arg.parse", function(){
       expect(obj.address[1].city).toEqual("Salt Lake City");
       expect(obj.address[1].state).toEqual("UT");
     }
+
+  });
+
+});
+
+describe("Arg.stringify", function(){
+
+  it("should be able to turn an object into a URL string via stringify()", function(){
+
+    var s = Arg.stringify({
+      name: "Ryan",
+      number: 27,
+      state: "CO"
+    });
+    expect(s).toContain("name=Ryan");
+    expect(s).toContain("number=27");
+    expect(s).toContain("state=CO");
+
+  });
+
+  it("should encode nested objects", function(){
+
+
 
   });
 
