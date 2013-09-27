@@ -76,9 +76,6 @@ var ArgReset = function(){
       current = (current[arrName] = current[arrName] || []);
       current = (current[index] = current[index] || {});
 
-      // update the selectors
-      //thisSel = thisSel.substr(thisSel.indexOf("]")+1);
-
     } else {
       if (!current[thisSel]) {
         current[thisSel] = {};
