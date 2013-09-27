@@ -14,6 +14,13 @@ describe("Arg", function(){
 
   });
 
+  it("should be able to parse the string into a data object", function(){
+    var obj = Arg.toPOJO(TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+  });
+
 });
 describe("Arg.Args", function(){
 
@@ -22,14 +29,6 @@ describe("Arg.Args", function(){
     expect(a._d["name"]).toEqual("Ryan");
     expect(a._d["number"]).toEqual("27");
     expect(a._d["state"]).toEqual("CO");
-  });
-
-  it("should be able to parse the string into a data object", function(){
-    var args = new Arg.Args();
-    var obj = args.parse(TestArgString);
-    expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
-    expect(obj["state"]).toEqual("CO");
   });
 
   it("should get all values via all()", function(){

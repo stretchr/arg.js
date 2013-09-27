@@ -38,18 +38,10 @@ Arg.parse = function(s){
   return new Arg.Args(s);
 };
 
-/** @class
- * Holds arg data and provides helpful functions.
- */
-Arg.Args = function(s){
-  this._s = s;
-  this._d = this.parse(s);
-};
-
 /**
  * Decodes a URL parameter string into a POJO.
  */
-Arg.Args.prototype.parse = function(s){
+Arg.toPOJO = function(s){
   if (!s) return {};
   var obj = {};
   var pairs = s.split("&");
@@ -59,6 +51,14 @@ Arg.Args.prototype.parse = function(s){
     obj[key] = val;
   }
   return obj;
+};
+
+/** @class
+ * Holds arg data and provides helpful functions.
+ */
+Arg.Args = function(s){
+  this._s = s;
+  this._d = Arg.toPOJO(s);
 };
 
 /**
