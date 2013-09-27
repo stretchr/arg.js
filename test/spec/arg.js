@@ -28,13 +28,8 @@ describe("Arg", function(){
 
     setupParams("?" + TestArgString);
     expect(Arg.querystring()).toEqual(TestArgString);
-    expect(Arg._querystring).toEqual(TestArgString);
-
-    Arg._querystring = "changed=true";
-    expect(Arg.querystring()).toEqual("changed=true");
 
     setupParams("?" + TestArgString + "#something=else");
-    delete Arg._querystring;
     expect(Arg.querystring()).toEqual(TestArgString);
 
   });
@@ -43,13 +38,8 @@ describe("Arg", function(){
 
     setupParams("?something=else#" + TestArgString);
     expect(Arg.hashstring()).toEqual(TestArgString);
-    expect(Arg._hashstring).toEqual(TestArgString);
-
-    Arg._hashstring = "changed=true";
-    expect(Arg.hashstring()).toEqual("changed=true");
 
     setupParams("#" + TestArgString);
-    delete Arg._hashstring;
     expect(Arg.hashstring()).toEqual(TestArgString);
 
   });

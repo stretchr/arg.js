@@ -76,12 +76,12 @@ Arg.hash = function(){
  * Gets the query string from the URL (the part after the ?).
  */
 Arg.querystring = function(){
-  return Arg._querystring != null ? Arg._querystring : Arg._querystring = location.search.substr(1);
+  return location.search.substr(1);
 };
 
 /**
  * Gets the hash param string from the URL (the part after the #).
  */
 Arg.hashstring = function(){
-  return Arg._hashstring != null ? Arg._hashstring : Arg._hashstring = location.hash.substr(1);
+  return location.hash.substr(1);
 };
