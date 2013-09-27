@@ -43,7 +43,8 @@ var ArgReset = function(){
     for (var pi in pairs) {
       var kvsegs = pairs[pi].split("=");
       var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
-      obj[key] = val;
+      Arg._ensureDeep(obj, key);
+      eval("obj." + key + " = val;");
     }
     return obj;
   };
@@ -104,6 +105,18 @@ var ArgReset = function(){
     }
     return s;
   };
+
+  /*
+   * Ensures objects exist in obj all the way to the path.
+   */
+  Arg._ensureDeep = function(obj, path) {
+    var segs = path.split(".");
+    var current = obj;
+    for (var s in segs) {
+      var seg = segs[s];
+      current = (current[seg] = current[seg] || {});
+    }
+  }
 
   /**
    * Merges all the arguments into a new object.

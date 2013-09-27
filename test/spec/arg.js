@@ -24,13 +24,6 @@ describe("Arg", function(){
     expect(Arg).toBeDefined();
   });
 
-  it("should be able to parse the string into a data object", function(){
-    var obj = Arg.parse(TestArgString);
-    expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
-    expect(obj["state"]).toEqual("CO");
-  });
-
   it("should be able to get the URL parameter string", function(){
 
     setupParams("?" + TestArgString);
@@ -155,6 +148,27 @@ describe("Arg", function(){
     expect(all["two"]).toEqual(2);
     expect(all["three"]).toEqual(3);
     expect(all["override"]).toEqual(true);
+
+  });
+
+});
+
+describe("Arg.parse", function(){
+
+  it("should be able to parse the string into a data object", function(){
+    var obj = Arg.parse(TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+  });
+
+  it("should be able to build deep objects using dot notation", function(){
+
+    var s = "address.city=Boulder&address.state=CO";
+    var obj = Arg.parse(s);
+
+    expect(obj.address.city).toEqual("Boulder");
+    expect(obj.address.state).toEqual("CO");
 
   });
 
