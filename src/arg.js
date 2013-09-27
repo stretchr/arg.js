@@ -43,12 +43,15 @@ var ArgReset = function(){
     for (var pi in pairs) {
       var kvsegs = pairs[pi].split("=");
       var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
-      Arg._access(obj, key, true, true, val);
+      Arg._access(obj, key, val);
     }
     return obj;
   };
 
-  Arg._access = function(current, selector, ensureDeep, shouldSet, setValue){
+  /*
+   *
+   */
+  Arg._access = function(current, selector, setValue){
 
 
     // split the selector by the first dot
@@ -60,11 +63,7 @@ var ArgReset = function(){
       var nextSel = selector.substr(dotPos+1);
 
     } else {
-
-      if (shouldSet)
-        current[selector] = setValue;
-
-      return current[selector];
+      return current[selector] = setValue;
     }
 
     if (thisSel.indexOf("[") > -1) {
@@ -83,7 +82,7 @@ var ArgReset = function(){
       current = current[thisSel] || {};
     }
 
-    return Arg._access(current, nextSel, ensureDeep, shouldSet, setValue);
+    return Arg._access(current, nextSel, setValue);
 
   };
 
@@ -143,18 +142,6 @@ var ArgReset = function(){
     }
     return s;
   };
-
-  /*
-   * Ensures objects exist in obj all the way to the path.
-   */
-  Arg._ensureDeep = function(obj, path) {
-    var segs = path.split(".");
-    var current = obj;
-    for (var s in segs) {
-      var seg = segs[s];
-      current = (current[seg] = current[seg] || {});
-    }
-  }
 
   /**
    * Merges all the arguments into a new object.
