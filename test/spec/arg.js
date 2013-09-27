@@ -172,4 +172,19 @@ describe("Arg.parse", function(){
 
   });
 
+  it("should be able to build arrays using array notation", function(){
+
+    var s = "address[0].city=Boulder&address[0].state=CO&address[1].city=Salt+Lake+City&address[1].state=UT";
+    var obj = Arg.parse(s);
+
+    if (expect(obj.address).toBeDefined()) {
+      expect(obj.address.length).toEqual(2);
+      expect(obj.address[0].city).toEqual("Boulder");
+      expect(obj.address[0].state).toEqual("CO");
+      expect(obj.address[1].city).toEqual("Salt Lake City");
+      expect(obj.address[1].state).toEqual("UT");
+    }
+
+  });
+
 });

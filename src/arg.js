@@ -43,10 +43,52 @@ var ArgReset = function(){
     for (var pi in pairs) {
       var kvsegs = pairs[pi].split("=");
       var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
-      Arg._ensureDeep(obj, key);
-      eval("obj." + key + " = val;");
+      Arg._access(obj, key, true, true, val);
     }
     return obj;
+  };
+
+  Arg._access = function(current, selector, ensureDeep, shouldSet, setValue){
+
+
+    // split the selector by the first dot
+    var dotPos = selector.indexOf(".");
+
+    if (dotPos > -1) {
+
+      thisSel = selector.substr(0, dotPos);
+      var nextSel = selector.substr(dotPos+1);
+
+    } else {
+
+      if (shouldSet)
+        current[selector] = setValue;
+
+      return current[selector];
+    }
+
+    if (thisSel.indexOf("[") > -1) {
+
+      var arrName = thisSel.substr(0, thisSel.indexOf("["));
+      var b = thisSel.split("[")[1];
+      var index = parseInt(b.substr(0,b.length-1));
+
+      current = (current[arrName] = current[arrName] || []);
+      current = (current[index] = current[index] || {});
+
+      // update the selectors
+      thisSel = thisSel.substr(thisSel.indexOf("]")+1);
+
+    }
+
+    if (!current[thisSel] && ensureDeep) {
+      current[thisSel] = {};
+    }
+
+    current = current[thisSel];
+
+    return Arg._access(current, nextSel, ensureDeep, shouldSet, setValue);
+
   };
 
   /**
