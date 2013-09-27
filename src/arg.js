@@ -26,6 +26,9 @@
 
 */
 
+/**
+ * ArgReset resets Arg.
+ */
 var ArgReset = function(){
 
   Arg = {};
@@ -92,6 +95,9 @@ var ArgReset = function(){
     return Arg._cleanParamStr(location.hash)
   };
 
+  /*
+   * Cleans the URL parameter string stripping # and ? from the beginning.
+   */
   Arg._cleanParamStr = function(s){
     while (s.indexOf("#") == 0 || s.indexOf("?") == 0) {
       s = s.substr(1);
