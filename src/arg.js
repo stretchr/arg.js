@@ -77,15 +77,14 @@ var ArgReset = function(){
       current = (current[index] = current[index] || {});
 
       // update the selectors
-      thisSel = thisSel.substr(thisSel.indexOf("]")+1);
+      //thisSel = thisSel.substr(thisSel.indexOf("]")+1);
 
+    } else {
+      if (!current[thisSel]) {
+        current[thisSel] = {};
+      }
+      current = current[thisSel] || {};
     }
-
-    if (!current[thisSel] && ensureDeep) {
-      current[thisSel] = {};
-    }
-
-    current = current[thisSel];
 
     return Arg._access(current, nextSel, ensureDeep, shouldSet, setValue);
 

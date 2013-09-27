@@ -187,4 +187,21 @@ describe("Arg.parse", function(){
 
   });
 
+  it("should be able to handle very complicated nestings", function(){
+
+    var s = "address[0].city=Boulder&name=Mat&something[0].very.deep[0].name=Ryan&address[0].state=CO&address[1].city=Salt+Lake+City&address[1].state=UT";
+    var obj = Arg.parse(s);
+
+    expect(obj.name).toEqual("Mat");
+    expect(obj.something[0].very.deep[0].name).toEqual("Ryan");
+    if (expect(obj.address).toBeDefined()) {
+      expect(obj.address.length).toEqual(2);
+      expect(obj.address[0].city).toEqual("Boulder");
+      expect(obj.address[0].state).toEqual("CO");
+      expect(obj.address[1].city).toEqual("Salt Lake City");
+      expect(obj.address[1].state).toEqual("UT");
+    }
+
+  });
+
 });
