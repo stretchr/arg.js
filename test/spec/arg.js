@@ -53,6 +53,18 @@ describe("Arg", function(){
     expect(args["number"]).toEqual("27");
     expect(args["state"]).toEqual("CO");
 
+    expect(Arg._query).toEqual(args);
+
+    Arg._query = {
+      "name": "Mat",
+      "number": "30"
+    };
+    var args = Arg.query();
+
+    expect(args["name"]).toEqual("Mat");
+    expect(args["number"]).toEqual("30");
+
+
   });
 
   it("should be able to get the POJO from the querystring via hash()", function(){
@@ -63,6 +75,17 @@ describe("Arg", function(){
     expect(args["name"]).toEqual("Ryan");
     expect(args["number"]).toEqual("27");
     expect(args["state"]).toEqual("CO");
+
+    expect(Arg._hash).toEqual(args);
+
+    Arg._hash = {
+      "name": "Mat",
+      "number": "30"
+    };
+    var args = Arg.hash();
+
+    expect(args["name"]).toEqual("Mat");
+    expect(args["number"]).toEqual("30");
 
   });
 
