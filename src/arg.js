@@ -38,6 +38,7 @@ var ArgReset = function(){
    */
   Arg.parse = function(s){
     if (!s) return {};
+    s = Arg._cleanParamStr(s);
     var obj = {};
     var pairs = s.split("&");
     for (var pi in pairs) {

@@ -182,6 +182,29 @@ describe("Arg.merge", function(){
 
 describe("Arg.parse", function(){
 
+  it("should clean incoming strings", function(){
+
+    var obj = Arg.parse("?" + TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["state"]).toEqual("CO");
+
+    var obj = Arg.parse("#" + TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+
+    var obj = Arg.parse("?#" + TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+
+    var obj = Arg.parse("#?" + TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+
+  });
+
   it("should be able to parse the string into a data object", function(){
     var obj = Arg.parse(TestArgString);
     expect(obj["name"]).toEqual("Ryan");
