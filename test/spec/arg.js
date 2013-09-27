@@ -135,7 +135,7 @@ describe("Arg", function(){
 
   });
 
-  if("should be able to merge data via the merge() method", function(){
+  it("should be able to merge data via the merge() method", function(){
 
     var a = {
       "one": 1,
