@@ -128,6 +128,33 @@ describe("Arg", function(){
 
   });
 
+  it("should give you quick access via the get method", function(){
+
+    setupParams("?something=else&egg=123#?number=26&sausage=true");
+
+    // standard
+    expect(Arg.get("something")).toEqual("else");
+    expect(Arg.get("egg")).toEqual("123");
+    expect(Arg.get("number")).toEqual("26");
+    expect(Arg.get("sausage")).toEqual("true");
+
+    // defaults
+    expect(Arg.get("nothing", "123")).toEqual("123");
+
+    // deep nesting
+    ArgReset();
+    setupParams("?address[0].city=Boulder&name=Mat&something[0].very.deep[0].name=Ryan#?address[0].state=CO&address[1].city=Salt+Lake+City&address[1].state=UT");
+
+    expect(Arg.get("address[0]")["city"]).toEqual("Boulder");
+    expect(Arg.get("address[0]")["state"]).toEqual("CO");
+    expect(Arg.get("something[0].very.deep[0].name")).toEqual("Ryan");
+
+  });
+
+});
+
+describe("Arg.merge", function(){
+
   it("should be able to merge data via the merge() method", function(){
 
     var a = {

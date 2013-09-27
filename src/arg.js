@@ -43,30 +43,31 @@ var ArgReset = function(){
     for (var pi in pairs) {
       var kvsegs = pairs[pi].split("=");
       var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
-      Arg._access(obj, key, val);
+      Arg._access(obj, key, val, true);
     }
     return obj;
   };
 
   /*
-   *
+   * recrusively, deeply accesses an object.
    */
-  Arg._access = function(current, selector, setValue){
-
+  Arg._access = function(current, selector, setValue, shouldSet){
 
     // split the selector by the first dot
+    var thisSel = selector;
     var dotPos = selector.indexOf(".");
+    var arrPos = selector.indexOf("[");
 
     if (dotPos > -1) {
-
       thisSel = selector.substr(0, dotPos);
       var nextSel = selector.substr(dotPos+1);
-
-    } else {
-      return current[selector] = setValue;
+    } else if (arrPos == -1) {
+      return shouldSet ? (current[selector] = setValue) : current[selector];
     }
 
-    if (thisSel.indexOf("[") > -1) {
+    arrPos = thisSel.indexOf("[");
+
+    if ((arrPos > -1 && arrPos < dotPos) || (arrPos > -1 && dotPos == -1)) {
 
       var arrName = thisSel.substr(0, thisSel.indexOf("["));
       var b = thisSel.split("[")[1];
@@ -82,7 +83,10 @@ var ArgReset = function(){
       current = current[thisSel] || {};
     }
 
-    return Arg._access(current, nextSel, setValue);
+    if (nextSel)
+      return Arg._access(current, nextSel, setValue, shouldSet);
+    else
+      return current;
 
   };
 
@@ -99,10 +103,19 @@ var ArgReset = function(){
   };
 
   /**
+   * Gets a parameter from the URL.
+   */
+  Arg.get = function(selector, def){
+    var val = Arg._access(Arg.all(), selector);
+    return typeof(val) === "undefined" ? def : val;
+  };
+
+  /**
    * Gets all parameters from the current URL.
    */
   Arg.all = function(){
-    return Arg._all ? Arg._all : Arg._all = Arg.merge(Arg.query(), Arg.hash());
+    var merged = Arg.parse(Arg.querystring() + "&" + Arg.hashstring());
+    return Arg._all ? Arg._all : Arg._all = merged;
   };
 
   /**
