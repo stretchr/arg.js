@@ -98,12 +98,12 @@ If you set `Arg.urlUseHash = true`, then the parameters will be placed in the ha
     Arg.url({name: "Mat", company: "Stretchr"});
     //= "path/to/current/page#?name=Mat&company=Stretchr"
 
-#### `Arg.url(path, params)` - explicit path
+##### `Arg.url(path, params)` - explicit path
 
     Arg.url("http://www.stretchr.com/", {name: "Mat", company: "Stretchr"});
     //= "http://www.stretchr.com/?name=Mat&company=Stretchr"
 
-#### `Arg.url(path, query, hash)` - explicit query and hash parameters in one URL
+##### `Arg.url(path, query, hash)` - explicit query and hash parameters in one URL
 
     Arg.url("http://www.stretchr.com/", {name: "Mat", company: "Stretchr"}, {comment: 123});
     //= "http://www.stretchr.com/?name=Mat&company=Stretchr#?comment=123";
