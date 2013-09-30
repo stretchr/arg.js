@@ -4,8 +4,8 @@
         <id>arg.js</id>
         <version>1.0.0</version>
         <title>Lightweight URL argument and parameter parser</title>
-        <authors>stretchr</authors>
-        <owners>stretchr</owners>
+        <authors>Stretchr</authors>
+        <owners>Stretchr</owners>
         <projectUrl>https://github.com/stretchr/arg.js</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Arg.js gives you quick and easy access to parameters in the URL.</description>
