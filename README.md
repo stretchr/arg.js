@@ -137,3 +137,9 @@ The `Arg.stringify` method lets you easily encode an object into a query string.
 
     Arg.stringify({list:["one","two","three"]});
     //= list[0]=one&list[1]=two&list[2]=three
+
+# Change log
+
+  * v1.0.1 - Ignores undefined/empty keys and values
+  * v1 - Launch
+

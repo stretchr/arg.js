@@ -35,7 +35,7 @@ var MakeArg = function(){
   /** @namespace
    */
   var Arg = {
-    version: "1"
+    version: "1.0.1"
   };
 
   /**
@@ -106,9 +106,12 @@ var MakeArg = function(){
       var segs = [];
       var thisKey;
       for (var key in obj) {
-        if (!obj.hasOwnProperty(key)) continue;
 
+        if (!obj.hasOwnProperty(key)) continue;
         var val = obj[key];
+
+        if (typeof(key) === "undefined" || key.length === 0 || typeof(val) === "undefined") continue;
+
         thisKey = keyPrefix ? keyPrefix+"."+key : key;
 
         if (typeof obj.length !== "undefined") {

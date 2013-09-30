@@ -21,7 +21,7 @@ describe("Arg", function(){
   });
 
   it("should know its version", function(){
-    expect(Arg.version).toEqual("1");
+    expect(Arg.version).toEqual("1.0.1");
   });
 
   it("namespace should be defined", function(){
@@ -347,6 +347,24 @@ describe("Arg.stringify", function(){
     expect(decodeURIComponent(s)).toContain("places[0].city=London");
     expect(decodeURIComponent(s)).toContain("places[1].city=Boulder");
 
+  });
+
+  it("should ignore undefined values", function(){
+    var o = {};
+    var un = o.undefined;
+    o[un] = "hello"
+    o["b"] = 1;
+    o["c"] = un;
+    o["d"] = "";
+    expect(Arg.stringify({"a":o.un,"b":1,"c":o.un})).toEqual("b=1")
+  });
+
+  it("should ignore keyless values", function(){
+    var o = {};
+    var un = o.undefined;
+    o[""] = "hello"
+    o["b"] = 1;
+    expect(Arg.stringify(o)).toEqual("b=1")
   });
 
 });
