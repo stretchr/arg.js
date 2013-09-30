@@ -16,7 +16,7 @@ describe("Arg", function(){
   beforeEach(function(){
 
     // clear out any caches
-    ArgReset();
+    Arg = ArgReset();
 
   });
 

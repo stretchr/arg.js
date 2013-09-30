@@ -32,7 +32,6 @@
 var ArgReset = function(){
 
   /** @namespace
-   * Namespace for all things Arg.
    */
   Arg = {
     version: "1"
