@@ -51,6 +51,13 @@ describe("Arg", function(){
 
   });
 
+  it("shouldn't get confused by trailing #", function(){
+
+    setupParams("?something=else#");
+    expect(Arg.all()["something"]).toEqual("else");
+
+  });
+
   it("should be able to get the POJO from the querystring via query()", function(){
 
     setupParams("?" + TestArgString);
@@ -98,7 +105,8 @@ describe("Arg", function(){
 
   it("should be able to get all parameters (from query and hash) via the all() method", function(){
 
-    setupParams("?name=Mat&eggs=true#number=30&state=CO");
+    var params = "?name=Mat&eggs=true#number=30&state=CO"
+    setupParams(params);
     var args = Arg.all();
 
     expect(args["name"]).toEqual("Mat");
@@ -116,6 +124,13 @@ describe("Arg", function(){
 
     expect(args["name"]).toEqual("Mat");
     expect(args["number"]).toEqual("30");
+
+    // check to make sure there's nothing extra hiding in the
+    // all map
+    for (var i in args) {
+      expect(params).toContain(i);
+      expect(params).toContain(args[i]);
+    }
 
   });
 
@@ -167,6 +182,16 @@ describe("Arg.url", function(){
   it("should not put the ? or #? on if there are no params", function(){
     Arg.urlUseHash = false;
     expect(Arg.url("http://www.google.com/", {})).toEqual("http://www.google.com/");
+  });
+
+  it("should work nicely with .all()", function(){
+
+    Arg = MakeArg();
+    setupParams("?something=else&egg=123#?number=26&sausage=true");
+
+    var all = Arg.url("page.html", Arg.all());
+    expect(all).toEqual("page.html?something=else&egg=123&number=26&sausage=true")
+
   });
 
 });
