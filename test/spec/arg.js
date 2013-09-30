@@ -20,6 +20,10 @@ describe("Arg", function(){
 
   });
 
+  it("should know its version", function(){
+    expect(Arg.version).toEqual("1");
+  });
+
   it("namespace should be defined", function(){
     expect(Arg).toBeDefined();
   });
