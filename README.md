@@ -2,6 +2,12 @@
 
 Arg.js gives you quick and easy access to parameters in the URL.
 
+## Installing
+
+  * Nuget: https://www.nuget.org/packages/arg.js
+
+# Usage
+
 ## Getting stuff
 
 The examples here assume this path:
