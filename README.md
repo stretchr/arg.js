@@ -89,6 +89,8 @@ The `Arg.url()` function builds a URL, and has a few overloaded versions.
 
 ##### `Arg.url(params)` - just the params
 
+Passing just an object will generate a URL based on the current location, just changing the parameters.
+
     Arg.url({name: "Mat", company: "Stretchr"});
     //= "path/to/current/page?name=Mat&company=Stretchr"
 
@@ -100,10 +102,14 @@ If you set `Arg.urlUseHash = true`, then the parameters will be placed in the ha
 
 ##### `Arg.url(path, params)` - explicit path
 
+Being explicit about a path in the first argument will use that location instead.
+
     Arg.url("http://www.stretchr.com/", {name: "Mat", company: "Stretchr"});
     //= "http://www.stretchr.com/?name=Mat&company=Stretchr"
 
 ##### `Arg.url(path, query, hash)` - explicit query and hash parameters in one URL
+
+If you want to use query and hash paremeters, pass a path and two objects.
 
     Arg.url("http://www.stretchr.com/", {name: "Mat", company: "Stretchr"}, {comment: 123});
     //= "http://www.stretchr.com/?name=Mat&company=Stretchr#?comment=123";
