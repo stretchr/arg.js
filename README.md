@@ -81,7 +81,32 @@ It will get the value from both the query segment, and the hash segment.
     //    fromhash: "true"
     //  }
 
-## Building a querystring
+## Building URLs and querystrings
+
+### `Arg.url()` helper
+
+The `Arg.url()` function builds a URL, and has a few overloaded versions.
+
+##### `Arg.url(params)` - just the params
+
+    Arg.url({name: "Mat", company: "Stretchr"});
+    //= "path/to/current/page?name=Mat&company=Stretchr"
+
+If you set `Arg.urlUseHash = true`, then the parameters will be placed in the hash segment of the new URL following the `#?` seperator:
+
+    Arg.urlUseHash = true;
+    Arg.url({name: "Mat", company: "Stretchr"});
+    //= "path/to/current/page#?name=Mat&company=Stretchr"
+
+#### `Arg.url(path, params)` - explicit path
+
+    Arg.url("http://www.stretchr.com/", {name: "Mat", company: "Stretchr"});
+    //= "http://www.stretchr.com/?name=Mat&company=Stretchr"
+
+#### `Arg.url(path, query, hash)` - explicit query and hash parameters in one URL
+
+    Arg.url("http://www.stretchr.com/", {name: "Mat", company: "Stretchr"}, {comment: 123});
+    //= "http://www.stretchr.com/?name=Mat&company=Stretchr#?comment=123";
 
 #### `Arg.stringify`
 

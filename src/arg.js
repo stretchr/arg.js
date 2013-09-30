@@ -119,6 +119,57 @@ var ArgReset = function(){
   };
 
   /**
+   * Generates a URL with the given parameters.
+   * (object) = A URL to the current page with the specified parameters.
+   * (path, object) = A URL to the specified path, with the object of parameters.
+   * (path, object, object) = A URL to the specified path with the first object as query parameters,
+   * and the second object as hash parameters.
+   */
+  Arg.url = function(){
+
+    var sep = (Arg.urlUseHash ? Arg.hashQuerySeperator : Arg.querySeperator);
+    var segs = [location.pathname, sep];
+
+    switch (arguments.length) {
+    case 1: // Arg.url(params)
+      segs.push(Arg.stringify(arguments[0]));
+      break;
+    case 2: // Arg.url(path, params)
+      segs[0] = arguments[0];
+      segs.push(Arg.stringify(arguments[1]));
+      break;
+    case 3: // Arg.url(path, query, hash)
+      segs[0] = arguments[0];
+      segs[1] = Arg.querySeperator;
+      segs.push(Arg.stringify(arguments[1]));
+      segs.push(Arg.hashQuerySeperator);
+      segs.push(Arg.stringify(arguments[2]));
+    }
+
+    var s = segs.join("");
+
+    // trim off sep if it's the last thing
+    if (s.indexOf(sep) == s.length - sep.length) {
+      s = s.substr(0, s.length - sep.length);
+    }
+
+    return s;
+
+  };
+
+  /** urlUseHash tells the Arg.url method to always put the parameters in the hash. */
+  Arg.urlUseHash = false;
+
+  /** The string that seperates the path and query parameters. */
+  Arg.querySeperator = "?";
+
+  /** The string that seperates the path or query, and the hash property. */
+  Arg.hashSeperator = "#";
+
+  /** The string that seperates the the path or query, and the hash query parameters. */
+  Arg.hashQuerySeperator = "#?";
+
+  /**
    * Gets a parameter from the URL.
    */
   Arg.get = function(selector, def){
@@ -166,7 +217,7 @@ var ArgReset = function(){
    * Cleans the URL parameter string stripping # and ? from the beginning.
    */
   Arg._cleanParamStr = function(s){
-    while (s.indexOf("#") == 0 || s.indexOf("?") == 0) {
+    while (s.indexOf(Arg.hashSeperator) == 0 || s.indexOf(Arg.querySeperator) == 0) {
       s = s.substr(1);
     }
     return s;

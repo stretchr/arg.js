@@ -140,6 +140,33 @@ describe("Arg", function(){
 
 });
 
+describe("Arg.url", function(){
+
+  it("should build a whole URL", function(){
+    expect(Arg.url("http://www.google.com/", {q: "hello"})).toEqual("http://www.google.com/?q=hello");
+  });
+
+  it("should support query and hash if the user is explicit", function(){
+    expect(Arg.url("http://www.google.com/", {q: "hello"}, {h: "yes"})).toEqual("http://www.google.com/?q=hello#?h=yes");
+  });
+
+  it("should respect Arg.urlUseHash", function(){
+    Arg.urlUseHash = true;
+    expect(Arg.url("http://www.google.com/", {q: "hello"})).toEqual("http://www.google.com/#?q=hello");
+  });
+
+  it("should default to the current page if no path is given", function(){
+    Arg.urlUseHash = false;
+    expect(Arg.url({q: "hello"})).toEqual(location.pathname + "?q=hello");
+  });
+
+  it("should not put the ? or #? on if there are no params", function(){
+    Arg.urlUseHash = false;
+    expect(Arg.url("http://www.google.com/", {})).toEqual("http://www.google.com/");
+  });
+
+});
+
 describe("Arg.merge", function(){
 
   it("should be able to merge data via the merge() method", function(){
