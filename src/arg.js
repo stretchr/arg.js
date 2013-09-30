@@ -27,9 +27,10 @@
 */
 
 /**
- * ArgReset resets Arg.
+ * MakeArg makes the Arg namespace.
+ * var Arg = MakeArg();
  */
-var ArgReset = function(){
+var MakeArg = function(){
 
   /** @namespace
    */
@@ -251,4 +252,4 @@ var ArgReset = function(){
 /** @namespace
  * Arg is the root namespace for all arg.js functionality.
  */
-var Arg = ArgReset();
+var Arg = MakeArg();
