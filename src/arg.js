@@ -33,7 +33,7 @@ var ArgReset = function(){
 
   /** @namespace
    */
-  Arg = {
+  var Arg = {
     version: "1"
   };
 
@@ -180,19 +180,19 @@ var ArgReset = function(){
   Arg.hashQuerySeperator = "#?";
 
   /**
-   * Gets a parameter from the URL.
-   */
-  Arg.get = function(selector, def){
-    var val = Arg._access(Arg.all(), selector);
-    return typeof(val) === "undefined" ? def : val;
-  };
-
-  /**
    * Gets all parameters from the current URL.
    */
   Arg.all = function(){
     var merged = Arg.parse(Arg.querystring() + "&" + Arg.hashstring());
     return Arg._all ? Arg._all : Arg._all = merged;
+  };
+
+  /**
+   * Gets a parameter from the URL.
+   */
+  Arg.get = function(selector, def){
+    var val = Arg._access(Arg.all(), selector);
+    return typeof(val) === "undefined" ? def : val;
   };
 
   /**

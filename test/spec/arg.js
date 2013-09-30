@@ -133,7 +133,7 @@ describe("Arg", function(){
     expect(Arg.get("nothing", "123")).toEqual("123");
 
     // deep nesting
-    ArgReset();
+    Arg = ArgReset();
     setupParams("?address[0].city=Boulder&name=Mat&something[0].very.deep[0].name=Ryan#?address[0].state=CO&address[1].city=Salt+Lake+City&address[1].state=UT");
 
     expect(Arg.get("address[0]")["city"]).toEqual("Boulder");
