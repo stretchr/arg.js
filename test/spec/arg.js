@@ -297,6 +297,13 @@ describe("Arg.stringify", function(){
 
   });
 
+  it("should return strings untouched (but encoded)", function(){
+
+    var s = Arg.stringify("Hello!");
+    expect(s).toEqual("Hello!");
+
+  });
+
   it("should know how to encode arrays", function(){
 
     var s = Arg.stringify({

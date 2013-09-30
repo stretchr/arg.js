@@ -96,26 +96,32 @@ var ArgReset = function(){
    */
   Arg.stringify = function(obj, keyPrefix) {
 
-    var segs = [];
-    var thisKey;
-    for (var key in obj) {
-      if (!obj.hasOwnProperty(key)) continue;
+    switch (typeof(obj)) {
+    case "object":
+      var segs = [];
+      var thisKey;
+      for (var key in obj) {
+        if (!obj.hasOwnProperty(key)) continue;
 
-      var val = obj[key];
-      thisKey = keyPrefix ? keyPrefix+"."+key : key;
+        var val = obj[key];
+        thisKey = keyPrefix ? keyPrefix+"."+key : key;
 
-      if (typeof obj.length !== "undefined") {
-        thisKey = keyPrefix ? keyPrefix+"["+key+"]" : key;
+        if (typeof obj.length !== "undefined") {
+          thisKey = keyPrefix ? keyPrefix+"["+key+"]" : key;
+        }
+
+        if (typeof val === "object") {
+          segs.push(Arg.stringify(val, thisKey));
+        } else {
+          segs.push(encodeURIComponent(thisKey)+"="+encodeURIComponent(val));
+        }
+
       }
-
-      if (typeof val === "object") {
-        segs.push(Arg.stringify(val, thisKey));
-      } else {
-        segs.push(encodeURIComponent(thisKey)+"="+encodeURIComponent(val));
-      }
-
+      return segs.join("&");
     }
-    return segs.join("&");
+
+    return encodeURIComponent(obj);
+
   };
 
   /**
