@@ -9,7 +9,7 @@ Arg.js gives you quick and easy access to parameters in the URL.
 
 ### Changes
 
-  * v1.0.1 - Ignores undefined/empty keys and values.  Cleans up edge cases (i.e. where paths are present in parse() calls etc)
+  * v1.0.1 - Ignores undefined/empty keys and values.  Cleans up edge cases (i.e. where paths are present in parse() calls etc).  Added `Arg(key)` shorter interface as well as `Arg.get(key)`.
   * v1 - Launch
 
 # Usage
