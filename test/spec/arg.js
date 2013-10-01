@@ -58,6 +58,13 @@ describe("Arg", function(){
 
   });
 
+  it("shouldn't get confused by values with a =", function(){
+
+    setupParams("?something=else=more");
+    expect(Arg.all()["something"]).toEqual("else=more");
+
+  });
+
   it("should be able to get the POJO from the querystring via query()", function(){
 
     setupParams("?" + TestArgString);
