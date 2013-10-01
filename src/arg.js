@@ -1,6 +1,6 @@
 /*
 
-  arg.js - v1
+  arg.js - v1.0.1
   JavaScript URL argument processing once and for all.
 
   by Mat Ryer and Ryan Quinn
@@ -43,6 +43,7 @@ var MakeArg = function(){
    */
   Arg.parse = function(s){
     if (!s) return {};
+    if (s.indexOf("=")===-1 && s.indexOf("&")===-1) return {};
     s = Arg._cleanParamStr(s);
     var obj = {};
     var pairs = s.split("&");
@@ -143,17 +144,20 @@ var MakeArg = function(){
 
     var sep = (Arg.urlUseHash ? Arg.hashQuerySeperator : Arg.querySeperator);
     var segs = [location.pathname, sep];
+    var args = {};
 
     switch (arguments.length) {
     case 1: // Arg.url(params)
       segs.push(Arg.stringify(arguments[0]));
       break;
     case 2: // Arg.url(path, params)
-      segs[0] = arguments[0];
-      segs.push(Arg.stringify(arguments[1]));
+      segs[0] = Arg._cleanPath(arguments[0]);
+      args = Arg.parse(arguments[0]);
+      args = Arg.merge(args, arguments[1]);
+      segs.push(Arg.stringify(args));
       break;
     case 3: // Arg.url(path, query, hash)
-      segs[0] = arguments[0];
+      segs[0] = Arg._cleanPath(arguments[0]);
       segs[1] = Arg.querySeperator;
       segs.push(Arg.stringify(arguments[1]));
       segs.push(Arg.hashQuerySeperator);
@@ -231,10 +235,31 @@ var MakeArg = function(){
    * Cleans the URL parameter string stripping # and ? from the beginning.
    */
   Arg._cleanParamStr = function(s){
-    while (s.indexOf(Arg.hashSeperator) == 0 || s.indexOf(Arg.querySeperator) == 0) {
+
+    if (s.indexOf(Arg.querySeperator)>-1)
+      s = s.split(Arg.querySeperator)[1];
+
+    if (s.indexOf(Arg.hashSeperator)>-1)
+      s = s.split(Arg.hashSeperator)[1];
+
+    if (s.indexOf("=")===-1 && s.indexOf("&")===-1)
+      return "";
+
+    while (s.indexOf(Arg.hashSeperator) == 0 || s.indexOf(Arg.querySeperator) == 0)
       s = s.substr(1);
-    }
+
     return s;
+  };
+
+  Arg._cleanPath = function(p){
+
+    if (p.indexOf(Arg.querySeperator)>-1)
+      p = p.substr(0,p.indexOf(Arg.querySeperator));
+
+    if (p.indexOf(Arg.hashSeperator)>-1)
+      p = p.substr(0,p.indexOf(Arg.hashSeperator));
+
+    return p;
   };
 
   /**

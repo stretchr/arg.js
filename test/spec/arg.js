@@ -184,6 +184,10 @@ describe("Arg.url", function(){
     expect(Arg.url("http://www.google.com/", {})).toEqual("http://www.google.com/");
   });
 
+  it("should blend the args IF the url already has some", function(){
+    expect(Arg.url("http://www.stretchr.com/?one=1&two=2", {three:3})).toEqual("http://www.stretchr.com/?one=1&two=2&three=3");
+  });
+
   it("should work nicely with .all()", function(){
 
     Arg = MakeArg();
@@ -223,6 +227,28 @@ describe("Arg.merge", function(){
 
 });
 
+describe("Cleaning", function(){
+
+  it("should strip off the domain and path if present", function(){
+
+    expect(Arg._cleanParamStr("http://www.stretchr.com/?arg=true")).toEqual("arg=true");
+    expect(Arg._cleanParamStr("http://www.stretchr.com/")).toEqual("");
+    expect(Arg._cleanParamStr("http://www.stretchr.com/#arg=true")).toEqual("arg=true");
+    expect(Arg._cleanParamStr("http://www.stretchr.com/#?arg=true")).toEqual("arg=true");
+    expect(Arg._cleanParamStr("http://www.stretchr.com/?#arg=true")).toEqual("arg=true");
+
+  });
+
+  it("should know how to get a clean path (without args)", function(){
+
+    expect(Arg._cleanPath("http://www.stretchr.com/?arg=true")).toEqual("http://www.stretchr.com/");
+    expect(Arg._cleanPath("http://www.stretchr.com/#arg=true")).toEqual("http://www.stretchr.com/");
+    expect(Arg._cleanPath("http://www.stretchr.com/?monkey=no#arg=true")).toEqual("http://www.stretchr.com/");
+
+  });
+
+});
+
 describe("Arg.parse", function(){
 
   it("should clean incoming strings", function(){
@@ -243,6 +269,38 @@ describe("Arg.parse", function(){
     expect(obj["state"]).toEqual("CO");
 
     var obj = Arg.parse("#?" + TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+
+  });
+
+  it("shouldn't get confused when it's just a path", function(){
+
+    var obj = Arg.parse("http://www.stretchr.com/");
+    expect(obj[encodeURIComponent("http://www.stretchr.com/")]).not.toBeDefined();
+    expect(Arg.stringify(obj)).toEqual("");
+
+  });
+
+  it("should ignore the path if parse is called with one", function(){
+
+    var obj = Arg.parse("http://www.stretchr.com/?" + TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+
+    var obj = Arg.parse("http://www.stretchr.com/#" + TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+
+    var obj = Arg.parse("http://www.stretchr.com/?#" + TestArgString);
+    expect(obj["name"]).toEqual("Ryan");
+    expect(obj["number"]).toEqual("27");
+    expect(obj["state"]).toEqual("CO");
+
+    var obj = Arg.parse("http://www.stretchr.com/#?" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
     expect(obj["number"]).toEqual("27");
     expect(obj["state"]).toEqual("CO");
