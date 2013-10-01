@@ -55,7 +55,7 @@ var MakeArg = function(){
   };
 
   /*
-   * recrusively, deeply accesses an object.
+   * recursively, deeply accesses an object.
    */
   Arg._access = function(current, selector, setValue, shouldSet){
 
