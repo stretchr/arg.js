@@ -49,7 +49,7 @@ var MakeArg = function(){
     var pairs = s.split("&");
     for (var pi in pairs) {
       var kvsegs = pairs[pi].split("=");
-      var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
+      var key = decodeURIComponent(kvsegs.shift()), val = decodeURIComponent(kvsegs.join('='));
       Arg._access(obj, key, val, true);
     }
     return obj;
@@ -206,8 +206,11 @@ var MakeArg = function(){
   /**
    * Gets the query string parameters from the current URL.
    */
-  Arg.query = function(){
-    return Arg._query ? Arg._query : Arg._query = Arg.parse(Arg.querystring());
+  Arg.query = function(queryString){
+    if (!queryString) {
+        var queryString = Arg.querystring()
+    }
+    return Arg._query ? Arg._query : Arg._query = Arg.parse(queryString);
   };
 
   /**
