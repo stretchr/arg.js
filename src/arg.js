@@ -49,7 +49,7 @@ var MakeArg = function(){
     var pairs = s.split("&");
     for (var pi in pairs) {
       var kvsegs = pairs[pi].split("=");
-      var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
+      var key = decodeURIComponent(kvsegs.shift()), val = decodeURIComponent(kvsegs.join('='));
       Arg._access(obj, key, val, true);
     }
     return obj;
