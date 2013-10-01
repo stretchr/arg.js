@@ -206,8 +206,11 @@ var MakeArg = function(){
   /**
    * Gets the query string parameters from the current URL.
    */
-  Arg.query = function(){
-    return Arg._query ? Arg._query : Arg._query = Arg.parse(Arg.querystring());
+  Arg.query = function(queryString){
+    if (!queryString) {
+        var queryString = Arg.querystring()
+    }
+    return Arg._query ? Arg._query : Arg._query = Arg.parse(queryString);
   };
 
   /**
