@@ -163,7 +163,7 @@
         segs[0] = Arg._cleanPath(arguments[0]);
         segs[1] = Arg.querySeperator;
         segs.push(Arg.stringify(arguments[1]));
-        segs.push(Arg.hashQuerySeperator);
+        (typeof(arguments[2])==="string") ? segs.push(Arg.hashSeperator) : segs.push(Arg.hashQuerySeperator);
         segs.push(Arg.stringify(arguments[2]));
       }
 

@@ -211,6 +211,10 @@ describe("Arg.url", function(){
     expect(Arg.url("http://www.stretchr.com/?one=1&two=2", {three:3})).toEqual("http://www.stretchr.com/?one=1&two=2&three=3");
   });
 
+  it("should use an anchor if a stirng is specified for the hash", function(){
+    expect(Arg.url("http://www.stretchr.com/", {name:"Mat"}, "anchor")).toEqual("http://www.stretchr.com/?name=Mat#anchor")
+  });
+
   it("should work nicely with .all()", function(){
 
     Arg = MakeArg();
