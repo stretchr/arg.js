@@ -14,7 +14,7 @@ Arg.js gives you quick and easy access to parameters in the URL.
   * Added `Arg(key)` shorter interface as well as `Arg.get(key)`.
   * Ignores undefined/empty keys and values.
   * Cleans up edge cases (i.e. where paths are present in parse() calls etc).
-  * Added support for anchors in `Arg.url(path, params, anchorString)` (i.e. no longer assumes they're variables if it's a string) - https://github.com/stretchr/arg.js/issues/8
+  * [Added support for anchors](https://github.com/stretchr/arg.js/issues/8) in `Arg.url(path, params, anchorString)` (i.e. no longer assumes they're variables if it's a string)
 
 ##### v1.0.0
 
