@@ -7,6 +7,12 @@ Arg.js gives you quick and easy access to parameters in the URL.
   * [Download your own copy](https://github.com/stretchr/arg.js/releases)
   * Package manager: [Nuget](https://www.nuget.org/packages/arg.js)
 
+### Changes
+
+  * v1.0.1 - Ignores undefined/empty keys and values
+  * v1.0.1 - Cleans up edge cases (i.e. where paths are present in parse() calls etc)
+  * v1 - Launch
+
 # Usage
 
 ## Getting stuff
@@ -137,9 +143,3 @@ The `Arg.stringify` method lets you easily encode an object into a query string.
 
     Arg.stringify({list:["one","two","three"]});
     //= list[0]=one&list[1]=two&list[2]=three
-
-# Change log
-
-  * v1.0.1 - Ignores undefined/empty keys and values
-  * v1 - Launch
-
