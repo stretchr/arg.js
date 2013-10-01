@@ -157,6 +157,29 @@ describe("Arg", function(){
 
   });
 
+  it("should get the value just by calling Arg() itself", function(){
+
+    setupParams("?something=else&egg=123#?number=26&sausage=true");
+
+    // standard
+    expect(Arg("something")).toEqual("else");
+    expect(Arg("egg")).toEqual("123");
+    expect(Arg("number")).toEqual("26");
+    expect(Arg("sausage")).toEqual("true");
+
+    // defaults
+    expect(Arg("nothing", "123")).toEqual("123");
+
+    // deep nesting
+    Arg = MakeArg();
+    setupParams("?address[0].city=Boulder&name=Mat&something[0].very.deep[0].name=Ryan#?address[0].state=CO&address[1].city=Salt+Lake+City&address[1].state=UT");
+
+    expect(Arg("address[0]")["city"]).toEqual("Boulder");
+    expect(Arg("address[0]")["state"]).toEqual("CO");
+    expect(Arg("something[0].very.deep[0].name")).toEqual("Ryan");
+
+  });
+
 });
 
 describe("Arg.url", function(){

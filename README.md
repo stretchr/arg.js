@@ -22,17 +22,17 @@ The examples here assume this path:
 
 #### Get a single value
 
-    Arg.get("name")
+    Arg("name")
     //= "Mat"
 
 It will get the value from both the query segment, and the hash segment.
 
-    Arg.get("fromhash")
+    Arg("fromhash")
     //= "true"
 
 #### Get an array
 
-    Arg.get("address")
+    Arg("address")
     //= [
     //    { city: "London", country: "UK" },
     //    { city: "Boulder", country: "US" }
@@ -40,17 +40,17 @@ It will get the value from both the query segment, and the hash segment.
 
 #### Get an object
 
-    Arg.get("address[0]")
+    Arg("address[0]")
     //= { city: "London", country: "UK" }
 
 #### Get a field from an object in an array
 
-    Arg.get("address[0].city")
+    Arg("address[0].city")
     //= "London"
 
 #### Get with a default value
 
-    Arg.get("address[0].something", "Unknown")
+    Arg("address[0].something", "Unknown")
     //= "Unknown"
 
 ### Getting everything

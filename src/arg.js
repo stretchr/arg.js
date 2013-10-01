@@ -36,9 +36,10 @@
 
     /** @namespace
      */
-    var Arg = {
-      version: "1.0.1"
+    var Arg = function(){
+      return Arg.get.apply(global, arguments);
     };
+    Arg.version = "1.0.1";
 
     /**
      * Parses the arg string into an Arg.Arg object.
