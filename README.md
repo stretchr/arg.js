@@ -101,6 +101,17 @@ It will get the value from both the query segment, and the hash segment.
     //    fromhash: "true"
     //  }
 
+#### Parsing your own strings with `Arg.parse()`
+
+Instead of using the current URL, you can be explicit by using the `Arg.parse` method.
+
+    var myArgs = "name=Mat&company=Stretchr";
+    Arg.parse(myArgs);
+    //= {
+    //    name: "Mat",
+    //    company: "Stretchr"
+    //  }
+
 ## Building URLs and querystrings
 
 ### `Arg.url()` helper
