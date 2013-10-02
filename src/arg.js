@@ -52,51 +52,70 @@
       for (var pi in pairs) {
         var kvsegs = pairs[pi].split("=");
         var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
-        Arg._access(obj, key, val, true);
+        Arg._access(obj, key, val);
       }
       return obj;
     };
 
-    /*
-     * recursively, deeply accesses an object.
+    /**
+     * Helper method to get/set deep nested values in an object based on a string selector
+     * 
+     * @param  {Object}  obj        Based object to either get/set selector on
+     * @param  {String}  selector   Object selector ie foo[0][1].bar[0].baz.foobar
+     * @param  {Mixed}   value      (optional) Value to set leaf located at `selector` to.
+     *                              If value is undefined, operates in 'get' mode to return value at obj->selector
+     * @return {Mixed}
      */
-    Arg._access = function(current, selector, setValue, shouldSet){
+    Arg._access = function(obj, selector, value) {
+      var shouldSet = typeof value !== "undefined";
+      var selectorBreak = -1;
+      var coerce_types = {
+        'true'  : true,
+        'false' : false,
+        'null'  : null
+      };
 
-      // split the selector by the first dot
-      var thisSel = selector;
-      var dotPos = selector.indexOf(".");
-      var arrPos = selector.indexOf("[");
-
-      if (dotPos > -1) {
-        thisSel = selector.substr(0, dotPos);
-        var nextSel = selector.substr(dotPos+1);
-      } else if (arrPos == -1) {
-        return shouldSet ? (current[selector] = setValue) : current[selector];
+      // selector could be a number if we're at a numerical index leaf in which case selector.search is not valid
+      if (typeof selector == 'string' || toString.call(selector) == '[object String]') {
+        selectorBreak = selector.search(/[\.\[]/);
       }
 
-      arrPos = thisSel.indexOf("[");
-
-      if ((arrPos > -1 && arrPos < dotPos) || (arrPos > -1 && dotPos == -1)) {
-
-        var arrName = thisSel.substr(0, thisSel.indexOf("["));
-        var b = thisSel.split("[")[1];
-        var index = parseInt(b.substr(0,b.length-1));
-
-        current = (current[arrName] = current[arrName] || []);
-        current = (current[index] = current[index] || {});
-
-      } else {
-        if (!current[thisSel]) {
-          current[thisSel] = {};
+      // No dot or array notation so we're at a leaf, set value
+      if (selectorBreak === -1) {
+        if (Arg.coerceMode) {
+          value = value && !isNaN(value)            ? +value              // number
+                : value === 'undefined'             ? undefined           // undefined
+                : coerce_types[value] !== undefined ? coerce_types[value] // true, false, null
+                : value;                                                  // string
         }
-        current = current[thisSel] || {};
+        return shouldSet ? (obj[selector] = value) : obj[selector];
       }
 
-      if (nextSel)
-        return Arg._access(current, nextSel, setValue, shouldSet);
-      else
-        return current;
+      // Example:
+      // selector     = 'foo[0].bar.baz[2]'
+      // currentRoot  = 'foo'
+      // nextSelector = '0].bar.baz[2]' -> will be converted to '0.bar.baz[2]' in below switch statement
+      var currentRoot = selector.substr(0, selectorBreak);
+      var nextSelector = selector.substr(selectorBreak + 1);
 
+      switch (selector.charAt(selectorBreak)) {
+        case '[':
+          // Intialize node as an array if we haven't visted it before
+          obj[currentRoot] = obj[currentRoot] || [];
+          nextSelector = nextSelector.replace(']', '');
+
+          if (nextSelector.search(/[\.\[]/) === -1) {
+            nextSelector = parseInt(nextSelector, 10);
+          }
+
+          return Arg._access(obj[currentRoot], nextSelector, value);
+        case '.':
+          // Intialize node as an object if we haven't visted it before
+          obj[currentRoot] = obj[currentRoot] || {};
+          return Arg._access(obj[currentRoot], nextSelector, value);
+      }
+
+      return obj;
     };
 
     /**
@@ -188,6 +207,9 @@
 
     /** The string that seperates the the path or query, and the hash query parameters. */
     Arg.hashQuerySeperator = "#?";
+
+    /** When parsing values if they should be coerced into primitive types, ie Number, Boolean, Undefined */
+    Arg.coerceMode = true;
 
     /**
      * Gets all parameters from the current URL.
