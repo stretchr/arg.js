@@ -64,19 +64,19 @@ describe("Arg", function(){
     var args = Arg.query();
 
     expect(args["name"]).toEqual("Ryan");
-    expect(args["number"]).toEqual("27");
+    expect(args["number"]).toEqual(27);
     expect(args["state"]).toEqual("CO");
 
     expect(Arg._query).toEqual(args);
 
     Arg._query = {
       "name": "Mat",
-      "number": "30"
+      "number": 30
     };
-    var args = Arg.query();
+    args = Arg.query();
 
     expect(args["name"]).toEqual("Mat");
-    expect(args["number"]).toEqual("30");
+    expect(args["number"]).toEqual(30);
 
 
   });
@@ -87,19 +87,19 @@ describe("Arg", function(){
     var args = Arg.hash();
 
     expect(args["name"]).toEqual("Ryan");
-    expect(args["number"]).toEqual("27");
+    expect(args["number"]).toEqual(27);
     expect(args["state"]).toEqual("CO");
 
     expect(Arg._hash).toEqual(args);
 
     Arg._hash = {
       "name": "Mat",
-      "number": "30"
+      "number": 30
     };
-    var args = Arg.hash();
+    args = Arg.hash()
 
     expect(args["name"]).toEqual("Mat");
-    expect(args["number"]).toEqual("30");
+    expect(args["number"]).toEqual(30);
 
   });
 
@@ -110,20 +110,20 @@ describe("Arg", function(){
     var args = Arg.all();
 
     expect(args["name"]).toEqual("Mat");
-    expect(args["number"]).toEqual("30");
-    expect(args["eggs"]).toEqual("true");
+    expect(args["number"]).toEqual(30);
+    expect(args["eggs"]).toEqual(true);
     expect(args["state"]).toEqual("CO");
 
     expect(Arg._all).toEqual(args);
 
     Arg._all = {
       "name": "Mat",
-      "number": "30"
+      "number": 30
     };
-    var args = Arg.all();
+    args = Arg.all();
 
     expect(args["name"]).toEqual("Mat");
-    expect(args["number"]).toEqual("30");
+    expect(args["number"]).toEqual(30);
 
     // check to make sure there's nothing extra hiding in the
     // all map
@@ -140,9 +140,9 @@ describe("Arg", function(){
 
     // standard
     expect(Arg.get("something")).toEqual("else");
-    expect(Arg.get("egg")).toEqual("123");
-    expect(Arg.get("number")).toEqual("26");
-    expect(Arg.get("sausage")).toEqual("true");
+    expect(Arg.get("egg")).toEqual(123);
+    expect(Arg.get("number")).toEqual(26);
+    expect(Arg.get("sausage")).toEqual(true);
 
     // defaults
     expect(Arg.get("nothing", "123")).toEqual("123");
@@ -255,22 +255,22 @@ describe("Arg.parse", function(){
 
     var obj = Arg.parse("?" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
 
-    var obj = Arg.parse("#" + TestArgString);
+    obj = Arg.parse("#" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
 
-    var obj = Arg.parse("?#" + TestArgString);
+    obj = Arg.parse("?#" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
 
-    var obj = Arg.parse("#?" + TestArgString);
+    obj = Arg.parse("#?" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
 
   });
@@ -287,22 +287,22 @@ describe("Arg.parse", function(){
 
     var obj = Arg.parse("http://www.stretchr.com/?" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
 
-    var obj = Arg.parse("http://www.stretchr.com/#" + TestArgString);
+    obj = Arg.parse("http://www.stretchr.com/#" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
 
-    var obj = Arg.parse("http://www.stretchr.com/?#" + TestArgString);
+    obj = Arg.parse("http://www.stretchr.com/?#" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
 
-    var obj = Arg.parse("http://www.stretchr.com/#?" + TestArgString);
+    obj = Arg.parse("http://www.stretchr.com/#?" + TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
 
   });
@@ -310,7 +310,7 @@ describe("Arg.parse", function(){
   it("should be able to parse the string into a data object", function(){
     var obj = Arg.parse(TestArgString);
     expect(obj["name"]).toEqual("Ryan");
-    expect(obj["number"]).toEqual("27");
+    expect(obj["number"]).toEqual(27);
     expect(obj["state"]).toEqual("CO");
   });
 
@@ -354,6 +354,49 @@ describe("Arg.parse", function(){
       expect(obj.address[1].state).toEqual("UT");
     }
 
+  });
+
+  it("should handle complicated nestings of mixed object and array types", function() {
+    var expected = {
+      foo : 1380670290160,
+      bar : 'abc',
+      baz : {
+        a: 'b'
+      },
+      arr :[
+        1,
+        2,
+        [
+          4,
+          3
+        ]
+      ],
+      deep :[
+        {
+          foo : 'bar',
+          baz : 'barz'
+        },
+        19,
+        [
+          'a',
+          {
+            deeper : 'deeper'
+          }
+        ]
+      ]
+    };
+
+    var obj = Arg.parse(Arg.stringify(expected));
+    expect(obj.foo).toEqual(1380670290160);
+    expect(obj.bar).toEqual('abc');
+    expect(obj.baz.a).toEqual('b');
+    expect(obj.arr.length).toEqual(3);
+    expect(obj.arr[2].length).toEqual(2);
+    expect(obj.arr[2][0]).toEqual(4);
+    expect(obj.deep.length).toEqual(3);
+    expect(obj.deep[0].foo).toEqual('bar');
+    expect(obj.deep[2].length).toEqual(2);
+    expect(obj.deep[2][1].deeper).toEqual('deeper');
   });
 
 });
