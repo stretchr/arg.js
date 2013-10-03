@@ -145,7 +145,7 @@ describe("Arg", function(){
     expect(Arg.get("sausage")).toEqual(true);
 
     // defaults
-    expect(Arg.get("nothing", "123")).toEqual("123");
+    expect(Arg.get("nothing", 123)).toEqual(123);
 
     // deep nesting
     Arg = MakeArg();
@@ -163,9 +163,9 @@ describe("Arg", function(){
 
     // standard
     expect(Arg("something")).toEqual("else");
-    expect(Arg("egg")).toEqual("123");
-    expect(Arg("number")).toEqual("26");
-    expect(Arg("sausage")).toEqual("true");
+    expect(Arg("egg")).toEqual(123);
+    expect(Arg("number")).toEqual(26);
+    expect(Arg("sausage")).toEqual(true);
 
     // defaults
     expect(Arg("nothing", "123")).toEqual("123");
