@@ -9,7 +9,7 @@ Arg.js gives you quick and easy access to parameters in the URL.
 
 ### Changes
 
-##### v1.1
+##### [v1.1](https://github.com/stretchr/arg.js/releases/tag/v1.1.0)
 
   * Added `Arg(key)` shorter interface as well as `Arg.get(key)`.
   * Ignores undefined/empty keys and values.
@@ -18,7 +18,7 @@ Arg.js gives you quick and easy access to parameters in the URL.
   * Better handling of complex objects that have mixed nested objects/arrays.  See new test case added to test/spec/arg.js for an example object that was failing and is no longer failing.
   * [Added support for anchors](https://github.com/stretchr/arg.js/issues/8) in `Arg.url(path, params, anchorString)` (i.e. no longer assumes they're variables if it's a string)
 
-##### v1
+##### [v1](https://github.com/stretchr/arg.js/releases/tag/v1.0.0)
 
   * Launch
 
