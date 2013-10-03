@@ -39,7 +39,7 @@
     var Arg = function(){
       return Arg.get.apply(global, arguments);
     };
-    Arg.version = "1.0.1";
+    Arg.version = "1.1.0";
 
     /**
      * Parses the arg string into an Arg.Arg object.
