@@ -36,9 +36,10 @@
 
     /** @namespace
      */
-    var Arg = {
-      version: "1.0.1"
+    var Arg = function(){
+      return Arg.get.apply(global, arguments);
     };
+    Arg.version = "1.0.1";
 
     /**
      * Parses the arg string into an Arg.Arg object.
@@ -181,7 +182,7 @@
         segs[0] = Arg._cleanPath(arguments[0]);
         segs[1] = Arg.querySeperator;
         segs.push(Arg.stringify(arguments[1]));
-        segs.push(Arg.hashQuerySeperator);
+        (typeof(arguments[2])==="string") ? segs.push(Arg.hashSeperator) : segs.push(Arg.hashQuerySeperator);
         segs.push(Arg.stringify(arguments[2]));
       }
 

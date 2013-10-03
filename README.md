@@ -9,8 +9,16 @@ Arg.js gives you quick and easy access to parameters in the URL.
 
 ### Changes
 
-  * v1.0.1 - Ignores undefined/empty keys and values.  Cleans up edge cases (i.e. where paths are present in parse() calls etc)
-  * v1 - Launch
+##### v1.0.1
+
+  * Added `Arg(key)` shorter interface as well as `Arg.get(key)`.
+  * Ignores undefined/empty keys and values.
+  * Cleans up edge cases (i.e. where paths are present in parse() calls etc).
+  * [Added support for anchors](https://github.com/stretchr/arg.js/issues/8) in `Arg.url(path, params, anchorString)` (i.e. no longer assumes they're variables if it's a string)
+
+##### v1.0.0
+
+  * Launch
 
 # Usage
 
@@ -22,17 +30,17 @@ The examples here assume this path:
 
 #### Get a single value
 
-    Arg.get("name")
+    Arg("name")
     //= "Mat"
 
 It will get the value from both the query segment, and the hash segment.
 
-    Arg.get("fromhash")
+    Arg("fromhash")
     //= "true"
 
 #### Get an array
 
-    Arg.get("address")
+    Arg("address")
     //= [
     //    { city: "London", country: "UK" },
     //    { city: "Boulder", country: "US" }
@@ -40,17 +48,17 @@ It will get the value from both the query segment, and the hash segment.
 
 #### Get an object
 
-    Arg.get("address[0]")
+    Arg("address[0]")
     //= { city: "London", country: "UK" }
 
 #### Get a field from an object in an array
 
-    Arg.get("address[0].city")
+    Arg("address[0].city")
     //= "London"
 
 #### Get with a default value
 
-    Arg.get("address[0].something", "Unknown")
+    Arg("address[0].something", "Unknown")
     //= "Unknown"
 
 ### Getting everything
@@ -91,6 +99,17 @@ It will get the value from both the query segment, and the hash segment.
     Arg.hash()
     //= {
     //    fromhash: "true"
+    //  }
+
+#### Parsing your own strings with `Arg.parse()`
+
+Instead of using the current URL, you can be explicit by using the `Arg.parse` method.
+
+    var myArgs = "name=Mat&company=Stretchr";
+    Arg.parse(myArgs);
+    //= {
+    //    name: "Mat",
+    //    company: "Stretchr"
     //  }
 
 ## Building URLs and querystrings
