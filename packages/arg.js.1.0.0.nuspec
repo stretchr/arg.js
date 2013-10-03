@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>arg.js</id>
+        <version>1.0.0</version>
+        <title>Lightweight URL argument and parameter parser</title>
+        <authors>Stretchr, Inc.</authors>
+        <owners>Stretchr, Inc.</owners>
+        <projectUrl>https://github.com/stretchr/arg.js</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Arg.js gives you quick and easy access to parameters in the URL.</description>
+        <summary>Arg.js gives you quick and easy access to parameters in the URL.</summary>
+    </metadata>
+    <files>
+        <file src="..\release\arg-v1-min.js" target="content\js\arg-v1-min.js" />
+        <file src="..\release\arg-v1.js" target="content\js\arg-v1.js" />
+    </files>
+</package>
