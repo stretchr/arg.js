@@ -2,10 +2,14 @@
 
 Arg.js gives you quick and easy access to parameters in the URL.
 
+  * [Installing](#installing)
+  * [Changes](#changes)
+  * [Usage](#usage)
+
 ## Installing
 
   * [Download your own copy](https://github.com/stretchr/arg.js/releases)
-  * Package manager: [Nuget](https://www.nuget.org/packages/arg.js)
+  * Package manager: [Nuget](https://www.nuget.org/packages/arg.js) *we would love to include more here, please send us Pull Requests*
 
 ### Changes
 
