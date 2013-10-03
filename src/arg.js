@@ -1,6 +1,6 @@
 /*
 
-  arg.js - v1.0.1
+  arg.js - v1.1
   JavaScript URL argument processing once and for all.
 
   by Mat Ryer and Ryan Quinn
@@ -60,7 +60,7 @@
 
     /**
      * Helper method to get/set deep nested values in an object based on a string selector
-     * 
+     *
      * @param  {Object}  obj        Based object to either get/set selector on
      * @param  {String}  selector   Object selector ie foo[0][1].bar[0].baz.foobar
      * @param  {Mixed}   value      (optional) Value to set leaf located at `selector` to.
