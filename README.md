@@ -28,6 +28,10 @@ Arg.js gives you quick and easy access to parameters in the URL.
 
   * Launch
 
+### People who like arg.js, also like:
+
+  * [over.js - Elegant function overloading in JavaScript](https://github.com/stretchr/over.js)
+
 # Usage
 
 ## Getting stuff
