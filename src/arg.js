@@ -294,9 +294,15 @@
      */
     Arg.merge = function(){
       var all = {};
-      for (var ai in arguments)
-        for (var k in arguments[ai])
-          all[k] = arguments[ai][k];
+      for (var ai in arguments){
+        if(arguments.hasOwnProperty(ai)){
+          for (var k in arguments[ai]){
+            if(arguments[ai].hasOwnProperty(k)){
+              all[k] = arguments[ai][k];
+            }
+          }
+        }
+      }
       return all;
     };
 
