@@ -51,9 +51,11 @@
       var obj = {};
       var pairs = s.split("&");
       for (var pi in pairs) {
-        var kvsegs = pairs[pi].split("=");
-        var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
-        Arg._access(obj, key, val);
+        if(pairs.hasOwnProperty(pi)){
+          var kvsegs = pairs[pi].split("=");
+          var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
+          Arg._access(obj, key, val);
+        }
       }
       return obj;
     };
@@ -292,9 +294,15 @@
      */
     Arg.merge = function(){
       var all = {};
-      for (var ai in arguments)
-        for (var k in arguments[ai])
-          all[k] = arguments[ai][k];
+      for (var ai in arguments){
+        if(arguments.hasOwnProperty(ai)){
+          for (var k in arguments[ai]){
+            if(arguments[ai].hasOwnProperty(k)){
+              all[k] = arguments[ai][k];
+            }
+          }
+        }
+      }
       return all;
     };
 
