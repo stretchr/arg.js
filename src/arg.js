@@ -51,9 +51,11 @@
       var obj = {};
       var pairs = s.split("&");
       for (var pi in pairs) {
-        var kvsegs = pairs[pi].split("=");
-        var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
-        Arg._access(obj, key, val);
+        if(pairs.hasOwnProperty(pi)){
+          var kvsegs = pairs[pi].split("=");
+          var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
+          Arg._access(obj, key, val);
+        }
       }
       return obj;
     };
