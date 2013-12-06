@@ -61,6 +61,17 @@
     };
 
     /**
+     * Decodes a URL component (including resolving + to spaces)
+     */
+    Arg.__decode = function(s) {
+      s = decodeURIComponent(s);
+      while (s.indexOf("+")>-1) {
+        s = s.replace("+", " ");
+      }
+      return s;
+    }
+
+    /**
      * Helper method to get/set deep nested values in an object based on a string selector
      *
      * @param  {Object}  obj        Based object to either get/set selector on
@@ -89,7 +100,7 @@
           value = value && !isNaN(value)            ? +value              // number
                 : value === 'undefined'             ? undefined           // undefined
                 : coerce_types[value] !== undefined ? coerce_types[value] // true, false, null
-                : value;                                                  // string
+                : Arg.__decode(value);                                    // string
         }
         return shouldSet ? (obj[selector] = value) : obj[selector];
       }
