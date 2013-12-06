@@ -67,9 +67,9 @@
       s = decodeURIComponent(s);
       while (s.indexOf("+")>-1) {
         s = s.replace("+", " ");
-      }
+      };
       return s;
-    }
+    };
 
     /**
      * Helper method to get/set deep nested values in an object based on a string selector
