@@ -230,7 +230,7 @@
      */
     Arg.all = function(){
       var merged = Arg.parse(Arg.querystring() + "&" + Arg.hashstring());
-      return Arg._all ? Arg._all : Arg._all = merged;
+      return merged;
     };
 
     /**
