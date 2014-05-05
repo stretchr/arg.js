@@ -53,7 +53,7 @@
       for (var pi in pairs) {
         if(pairs.hasOwnProperty(pi)){
           var kvsegs = pairs[pi].split("=");
-          var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
+          var key = decodeURIComponent(kvsegs[0]), val = Arg.__decode(kvsegs[1]);
           Arg._access(obj, key, val);
         }
       }
@@ -64,10 +64,10 @@
      * Decodes a URL component (including resolving + to spaces)
      */
     Arg.__decode = function(s) {
-      s = decodeURIComponent(s);
-      while (s.indexOf("+")>-1) {
+      while (s && s.indexOf("+")>-1) {
         s = s.replace("+", " ");
       };
+      s = decodeURIComponent(s);
       return s;
     };
 
@@ -100,7 +100,7 @@
           value = value && !isNaN(value)            ? +value              // number
                 : value === 'undefined'             ? undefined           // undefined
                 : coerce_types[value] !== undefined ? coerce_types[value] // true, false, null
-                : Arg.__decode(value);                                    // string
+                : value;                                    // string
         }
         return shouldSet ? (obj[selector] = value) : obj[selector];
       }
