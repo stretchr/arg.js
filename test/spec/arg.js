@@ -45,6 +45,13 @@ describe("Arg", function(){
 
   });
 
+  it("Plusses in decoded URL should remain intact (see https://github.com/stretchr/arg.js/issues/17)", function(){
+
+    setupParams("?something=one%2b%2b");
+    expect(Arg("something")).toEqual("one++");
+
+  });
+
   it("should be able to get the hash parameter string", function(){
 
     setupParams("?something=else#" + TestArgString);
