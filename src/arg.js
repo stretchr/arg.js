@@ -229,8 +229,7 @@
      * Gets all parameters from the current URL.
      */
     Arg.all = function(){
-      var merged = Arg.parse(Arg.querystring() + "&" + Arg.hashstring());
-      return merged;
+      return Arg.parse(Arg.querystring() + "&" + Arg.hashstring());
     };
 
     /**
@@ -245,14 +244,14 @@
      * Gets the query string parameters from the current URL.
      */
     Arg.query = function(){
-      return Arg._query ? Arg._query : Arg._query = Arg.parse(Arg.querystring());
+      return Arg.parse(Arg.querystring());
     };
 
     /**
      * Gets the hash string parameters from the current URL.
      */
     Arg.hash = function(){
-      return Arg._hash ? Arg._hash : Arg._hash = Arg.parse(Arg.hashstring());
+      return Arg.parse(Arg.hashstring());
     };
 
     /**

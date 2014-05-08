@@ -81,18 +81,12 @@ describe("Arg", function(){
     expect(args["number"]).toEqual(27);
     expect(args["state"]).toEqual("CO");
 
-    expect(Arg._query).toEqual(args);
-
-    Arg._query = {
-      "name": "Mat",
-      "number": 30
-    };
-    args = Arg.query();
-
-    expect(args["name"]).toEqual("Mat");
-    expect(args["number"]).toEqual(30);
-
-
+    // check to make sure there's nothing extra hiding in the
+    // query map
+    for (var i in args) {
+      expect(TestArgString).toContain(i);
+      expect(TestArgString).toContain(args[i]);
+    }
   });
 
   it("should be able to get the POJO from the querystring via hash()", function(){
@@ -104,16 +98,12 @@ describe("Arg", function(){
     expect(args["number"]).toEqual(27);
     expect(args["state"]).toEqual("CO");
 
-    expect(Arg._hash).toEqual(args);
-
-    Arg._hash = {
-      "name": "Mat",
-      "number": 30
-    };
-    args = Arg.hash()
-
-    expect(args["name"]).toEqual("Mat");
-    expect(args["number"]).toEqual(30);
+    // check to make sure there's nothing extra hiding in the
+    // hash map
+    for (var i in args) {
+      expect(TestArgString).toContain(i);
+      expect(TestArgString).toContain(args[i]);
+    }
 
   });
 
@@ -127,17 +117,6 @@ describe("Arg", function(){
     expect(args["number"]).toEqual(30);
     expect(args["eggs"]).toEqual(true);
     expect(args["state"]).toEqual("CO");
-
-    expect(Arg._all).toEqual(args);
-
-    Arg._all = {
-      "name": "Mat",
-      "number": 30
-    };
-    args = Arg.all();
-
-    expect(args["name"]).toEqual("Mat");
-    expect(args["number"]).toEqual(30);
 
     // check to make sure there's nothing extra hiding in the
     // all map
