@@ -1,6 +1,6 @@
 /*
 
-  arg.js - v1.1
+  arg.js - v1.2
   JavaScript URL argument processing once and for all.
 
   by Mat Ryer and Ryan Quinn
@@ -39,7 +39,7 @@
     var Arg = function(){
       return Arg.get.apply(global, arguments);
     };
-    Arg.version = "1.0.1";
+    Arg.version = "1.2.0";
 
     /**
      * Parses the arg string into an Arg.Arg object.
@@ -51,11 +51,24 @@
       var obj = {};
       var pairs = s.split("&");
       for (var pi in pairs) {
-        var kvsegs = pairs[pi].split("=");
-        var key = decodeURIComponent(kvsegs[0]), val = decodeURIComponent(kvsegs[1]);
-        Arg._access(obj, key, val);
+        if(pairs.hasOwnProperty(pi)){
+          var kvsegs = pairs[pi].split("=");
+          var key = decodeURIComponent(kvsegs[0]), val = Arg.__decode(kvsegs[1]);
+          Arg._access(obj, key, val);
+        }
       }
       return obj;
+    };
+
+    /**
+     * Decodes a URL component (including resolving + to spaces)
+     */
+    Arg.__decode = function(s) {
+      while (s && s.indexOf("+")>-1) {
+        s = s.replace("+", " ");
+      };
+      s = decodeURIComponent(s);
+      return s;
     };
 
     /**
@@ -87,7 +100,7 @@
           value = value && !isNaN(value)            ? +value              // number
                 : value === 'undefined'             ? undefined           // undefined
                 : coerce_types[value] !== undefined ? coerce_types[value] // true, false, null
-                : value;                                                  // string
+                : value;                                    // string
         }
         return shouldSet ? (obj[selector] = value) : obj[selector];
       }
@@ -292,9 +305,15 @@
      */
     Arg.merge = function(){
       var all = {};
-      for (var ai in arguments)
-        for (var k in arguments[ai])
-          all[k] = arguments[ai][k];
+      for (var ai in arguments){
+        if(arguments.hasOwnProperty(ai)){
+          for (var k in arguments[ai]){
+            if(arguments[ai].hasOwnProperty(k)){
+              all[k] = arguments[ai][k];
+            }
+          }
+        }
+      }
       return all;
     };
 
