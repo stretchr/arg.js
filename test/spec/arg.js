@@ -21,7 +21,7 @@ describe("Arg", function(){
   });
 
   it("should know its version", function(){
-    expect(Arg.version).toEqual("1.0.1");
+    expect(Arg.version).toEqual("1.1.0");
   });
 
   it("namespace should be defined", function(){
@@ -35,6 +35,20 @@ describe("Arg", function(){
 
     setupParams("?" + TestArgString + "#something=else");
     expect(Arg.querystring()).toEqual(TestArgString);
+
+  });
+
+  it("should decode the URL component bits (see https://github.com/stretchr/arg.js/issues/17)", function(){
+
+    setupParams("?something=one+two+three");
+    expect(Arg("something")).toEqual("one two three");
+
+  });
+
+  it("Plusses in decoded URL should remain intact (see https://github.com/stretchr/arg.js/issues/17)", function(){
+
+    setupParams("?something=one%2b%2b");
+    expect(Arg("something")).toEqual("one++");
 
   });
 

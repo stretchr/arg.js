@@ -1,0 +1,23 @@
+{
+  "name": "arg.js",
+  "version": "1.1.0",
+  "homepage": "https://github.com/stretchr/arg.js",
+  "authors": [
+    "Mat Ryer",
+    "Ryan Quinn"
+  ],
+  "description": "Lightweight URL argument and parameter parser",
+  "main": "src/arg.js",
+  "keywords": [
+    "javascript",
+    "arguments"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
