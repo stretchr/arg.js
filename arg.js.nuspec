@@ -12,7 +12,7 @@
         <summary>Arg.js gives you quick and easy access to parameters in the URL.</summary>
     </metadata>
     <files>
-        <file src="..\dist\arg-1.2.min.js" target="content\js\arg-1.2.min.js" />
-        <file src="..\dist\arg-1.2.js" target="content\js\arg-1.2.js" />
+        <file src="dist\arg-1.2.min.js" target="content\js\arg-1.2.min.js" />
+        <file src="dist\arg-1.2.js" target="content\js\arg-1.2.js" />
     </files>
 </package>
