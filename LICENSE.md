@@ -1,6 +1,6 @@
 
 by Mat Ryer and Ryan Quinn
-Copyright (c) 2013 Stretchr, Inc.
+Copyright (c) 2013 - 2014 The Authors
 
 Please consider promoting this project if you find it useful.
 
