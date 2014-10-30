@@ -1,6 +1,6 @@
 /*
 
-  arg.js - v1.1
+  arg.js - v1.2
   JavaScript URL argument processing once and for all.
 
   by Mat Ryer and Ryan Quinn
@@ -39,7 +39,7 @@
     var Arg = function(){
       return Arg.get.apply(global, arguments);
     };
-    Arg.version = "1.1.0";
+    Arg.version = "1.2.0";
 
     /**
      * Parses the arg string into an Arg.Arg object.

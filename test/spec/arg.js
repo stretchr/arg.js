@@ -21,7 +21,7 @@ describe("Arg", function(){
   });
 
   it("should know its version", function(){
-    expect(Arg.version).toEqual("1.1.0");
+    expect(Arg.version).toEqual("1.2.0");
   });
 
   it("namespace should be defined", function(){

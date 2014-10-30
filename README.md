@@ -10,10 +10,18 @@ Arg.js gives you quick and easy access to parameters in the URL.
 ## Installing
 
   * [Download your own copy](https://github.com/stretchr/arg.js/releases)
-  * Package manager: [Nuget](https://www.nuget.org/packages/arg.js), [Bower](http://bower.io/search/#!/search/javascript arguments)
+  * Package manager: [NuGet](https://www.nuget.org/packages/arg.js), [Bower](http://bower.io/search/#!/search/javascript arguments)
     * *we would love to include more here, please send us Pull Requests*
 
 ### Changes
+
+#### [v1.2](https://github.com/stretchr/arg.js/releases/tag/v1.2.0)
+
+ * Simplified project structure and file names
+ * Minified version included in /dist
+ * Resolves decoding URL issues [#17](https://github.com/stretchr/arg.js/issues/17)
+ * Fix for `Arg.query()` in IE 8 [#19](https://github.com/stretchr/arg.js/issues/19)
+ * Use `hasOwnProperty` when looping though arguments
 
 ##### [v1.1](https://github.com/stretchr/arg.js/releases/tag/v1.1.0)
 

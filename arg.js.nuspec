@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>arg.js</id>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
         <title>Lightweight URL argument and parameter parser</title>
         <authors>Stretchr, Inc.</authors>
         <owners>Stretchr, Inc.</owners>
@@ -12,7 +12,7 @@
         <summary>Arg.js gives you quick and easy access to parameters in the URL.</summary>
     </metadata>
     <files>
-        <file src="..\release\arg.js.v1.1.min.js" target="content\js\arg.js.v1.1.min.js" />
-        <file src="..\release\arg.js.v1.1.js" target="content\js\arg.js.v1.1.js" />
+        <file src="..\dist\arg-1.2.min.js" target="content\js\arg-1.2.min.js" />
+        <file src="..\dist\arg-1.2.js" target="content\js\arg-1.2.js" />
     </files>
 </package>
