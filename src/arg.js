@@ -146,7 +146,7 @@
           if (!obj.hasOwnProperty(key)) continue;
           var val = obj[key];
 
-          if (typeof(key) === "undefined" || key.length === 0 || typeof(val) === "undefined") continue;
+          if (typeof(key) === "undefined" || key.length === 0 || typeof(val) === "undefined" || val.length === 0) continue;
 
           thisKey = keyPrefix ? keyPrefix+"."+key : key;
 
