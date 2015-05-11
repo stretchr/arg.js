@@ -498,7 +498,7 @@ describe("Arg.stringify", function(){
     o["b"] = 1;
     o["c"] = un;
     o["d"] = "";
-    expect(Arg.stringify({"a":o.un,"b":1,"c":o.un})).toEqual("b=1")
+    expect(Arg.stringify({"a":o.un,"b":1,"c":o.un,"d":[]})).toEqual("b=1")
   });
 
   it("should ignore keyless values", function(){
