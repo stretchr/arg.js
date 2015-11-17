@@ -321,9 +321,16 @@
 
   };
 
-  /** @namespace
-   * Arg is the root namespace for all arg.js functionality.
-   */
-  global.Arg = MakeArg();
+  if (typeof define === 'function' && define.amd) {
+    /* AMD support */
+    define(function(){
+      return MakeArg();
+    });
+  } else {
+    /** @namespace
+     * Arg is the root namespace for all arg.js functionality.
+     */
+    global.Arg = MakeArg();
+  }
 
 })(window);
