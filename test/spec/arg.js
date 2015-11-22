@@ -117,6 +117,17 @@ describe("Arg", function(){
 
   });
 
+  it("should be able to parse encoded characters via hash()", function(){
+    setupParams("#token=value%3D&random=%3D%7Cabc%26123%7C%3D");
+    var args = Arg.hash();
+
+    expect(args["token"]).toEqual("value=");
+    expect(args["random"]).toEqual("=|abc&123|=");
+
+    expect(Arg._hash).toEqual(args);
+
+  });
+
   it("should be able to get all parameters (from query and hash) via the all() method", function(){
 
     var params = "?name=Mat&eggs=true#number=30&state=CO"

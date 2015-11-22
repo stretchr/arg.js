@@ -266,7 +266,10 @@
      * Gets the hash param string from the URL (the part after the #).
      */
     Arg.hashstring = function(){
-      return Arg._cleanParamStr(location.hash)
+      var rawHref = location.href;
+      var hashIndex = rawHref.indexOf("#");
+      var hash = hashIndex >= 0 ? rawHref.substr(hashIndex) : "";
+      return Arg._cleanParamStr(hash);
     };
 
     /*
