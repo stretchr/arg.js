@@ -1,6 +1,6 @@
 /*
 
-  arg.js - v1.2
+  arg.js - v1.4
   JavaScript URL argument processing once and for all.
 
   by Mat Ryer and Ryan Quinn
