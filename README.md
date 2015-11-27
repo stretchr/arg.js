@@ -15,6 +15,10 @@ Arg.js gives you quick and easy access to parameters in the URL.
 
 ### Changes
 
+#### [v1.4](https://github.com/stretchr/arg.js/releases/tag/v1.4.0)
+
+* Do not rely on location.hash for consistency between browsers [#18](https://github.com/stretchr/arg.js/issues/18)
+
 #### [v1.3](https://github.com/stretchr/arg.js/releases/tag/v1.3.0)
 
   * BUG: Empty arrays result in extra `&&&&`
