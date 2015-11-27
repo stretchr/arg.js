@@ -1,6 +1,6 @@
 /*
 
-  arg.js - v1.2
+  arg.js - v1.4
   JavaScript URL argument processing once and for all.
 
   by Mat Ryer and Ryan Quinn
@@ -39,7 +39,7 @@
     var Arg = function(){
       return Arg.get.apply(global, arguments);
     };
-    Arg.version = "1.2.0";
+    Arg.version = "1.4.0";
 
     /**
      * Parses the arg string into an Arg.Arg object.
@@ -146,7 +146,7 @@
           if (!obj.hasOwnProperty(key)) continue;
           var val = obj[key];
 
-          if (typeof(key) === "undefined" || key.length === 0 || typeof(val) === "undefined") continue;
+          if (typeof(key) === "undefined" || key.length === 0 || typeof(val) === "undefined" || val === null || val.length === 0) continue;
 
           thisKey = keyPrefix ? keyPrefix+"."+key : key;
 
@@ -266,7 +266,10 @@
      * Gets the hash param string from the URL (the part after the #).
      */
     Arg.hashstring = function(){
-      return Arg._cleanParamStr(location.hash)
+      var rawHref = location.href;
+      var hashIndex = rawHref.indexOf("#");
+      var hash = hashIndex >= 0 ? rawHref.substr(hashIndex) : "";
+      return Arg._cleanParamStr(hash);
     };
 
     /*
@@ -321,9 +324,16 @@
 
   };
 
-  /** @namespace
-   * Arg is the root namespace for all arg.js functionality.
-   */
-  global.Arg = MakeArg();
+  if (typeof define === 'function' && define.amd) {
+    /* AMD support */
+    define(function(){
+      return MakeArg();
+    });
+  } else {
+    /** @namespace
+     * Arg is the root namespace for all arg.js functionality.
+     */
+    global.Arg = MakeArg();
+  }
 
 })(window);
