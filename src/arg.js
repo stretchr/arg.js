@@ -39,7 +39,7 @@
     var Arg = function(){
       return Arg.get.apply(global, arguments);
     };
-    Arg.version = "1.2.0";
+    Arg.version = "1.4.0";
 
     /**
      * Parses the arg string into an Arg.Arg object.
@@ -329,6 +329,9 @@
     define(function(){
       return MakeArg();
     });
+  } else if (typeof module === 'object' && module.exports) {
+    /* CJS support */
+    module.exports = MakeArg();
   } else {
     /** @namespace
      * Arg is the root namespace for all arg.js functionality.
