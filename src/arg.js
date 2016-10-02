@@ -118,7 +118,7 @@
           obj[currentRoot] = obj[currentRoot] || [];
           nextSelector = nextSelector.replace(']', '');
 
-          if (nextSelector.search(/[\.\[]/) === -1) {
+          if (nextSelector.search(/[\.\[]/) === -1 && nextSelector.search(/^[0-9]+$/) > -1) {
             nextSelector = parseInt(nextSelector, 10);
           }
 
