@@ -66,7 +66,7 @@
     Arg.__decode = function(s) {
       while (s && s.indexOf("+")>-1) {
         s = s.replace("+", " ");
-      };
+      }
       s = decodeURIComponent(s);
       return s;
     };
@@ -118,7 +118,7 @@
           obj[currentRoot] = obj[currentRoot] || [];
           nextSelector = nextSelector.replace(']', '');
 
-          if (nextSelector.search(/[\.\[]/) === -1) {
+          if (nextSelector.search(/[\.\[]/) === -1 && nextSelector.search(/^[0-9]+$/) > -1) {
             nextSelector = parseInt(nextSelector, 10);
           }
 
@@ -286,7 +286,7 @@
       if (s.indexOf("=")===-1 && s.indexOf("&")===-1)
         return "";
 
-      while (s.indexOf(Arg.hashSeperator) == 0 || s.indexOf(Arg.querySeperator) == 0)
+      while (s.indexOf(Arg.hashSeperator) === 0 || s.indexOf(Arg.querySeperator) === 0)
         s = s.substr(1);
 
       return s;
