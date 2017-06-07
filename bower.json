@@ -1,13 +1,13 @@
 {
   "name": "arg.js",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "homepage": "https://github.com/stretchr/arg.js",
   "authors": [
     "Mat Ryer",
     "Ryan Quinn"
   ],
   "description": "Lightweight URL argument and parameter parser",
-  "main": "dist/arg-1.2.js",
+  "main": "dist/arg-1.4.js",
   "keywords": [
     "javascript",
     "arguments"
